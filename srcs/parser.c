@@ -6,7 +6,24 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/22 19:51:48 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/24 12:19:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
+#include "so_long.h"
+
+size_t	count_wall(char *str)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '1')
+			j++;
+        i++;
+	}
+	return (j);
+}

@@ -6,37 +6,35 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/23 00:46:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/25 21:58:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-# include "so_long.h"
-# include "../minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx.h"
+#include "so_long.h"
 
-
-int	main(void)
+int	main(int arv, char **arg)
 {
-    int fd;
-    char *line;
-	// void	*mlx;
-    // void    *mlx_win;
+	int		fd;
+	char	*line;
+	char	*path;
 
-	// mlx = mlx_init();
-    // mlx_win = mlx_new_window(mlx, 300, 300, "Hello world!");
-	// mlx_loop(mlx);
-	void	*img;
-	void	*mlx;
-
-	mlx = mlx_init();
-	img = mlx_new_image(mlx, 1920, 1080);
-    fd = open("maps/map1.ber", O_RDONLY);
-    line = get_next_line(fd);
-    while (line)
-    {
-        printf("%s", line);
-        free(line);
-        line = get_next_line(fd);
-    }
-    printf("%p", img);
-    free(line);
+	path = ft_strjoin("maps/", arg[1]);
+	if (!path)
+		return (free(path), 0);
+	printf("%d", arv);
+	fd = open(path, O_RDONLY);
+	line = get_next_line(fd);
+	if (!line)
+		return (free(path),free(line),0);
+	while (line)
+	{
+		printf("line : %s", line);
+		printf("nb of wall : %zu\n", count_wall(line));
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	window_handling();
+	free(path);
 }
