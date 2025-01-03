@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/30 10:55:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/31 11:21:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -29,12 +29,19 @@ size_t	count_wall(char *str)
 	return (j);
 }
 
-int	parsing_handling(int fd, char *path, t_size *window_size)
+//TODO : Function that verif the map : int verif_map();
+
+int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
 {
 	char	*line;
-	int		width = 0;
-	int		height = 0;
-	
+	int		width;
+	int		height;
+	int		i;
+	t_tab *new_matrice;
+
+	width = 0;
+	height = 0;
+	i = 0;
 	line = get_next_line(fd);
 	if (ft_strchr(line, '0') != NULL)
 		return (free(line), 0);
@@ -43,11 +50,24 @@ int	parsing_handling(int fd, char *path, t_size *window_size)
 	while (line)
 	{
 		width = ft_strlen(line);
-		// printf("line : %s\n", line);
+		new_matrice = (t_tab *)malloc(sizeof(t_tab));
+		if (!new_matrice)
+			return (free(line), 0);
+		new_matrice->tab = malloc(ft_strlen(line) * sizeof(int));
+		if (!new_matrice->tab)
+			return (free(line), 0);
+		while (line[i] && line[i] != '\n')
+		{
+			if ((line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A'
+					&& line[i] <= 'Z') || (line[i] >= '0' && line[i] <= '9'))
+				new_matrice->tab[i] = line[i] - 48;
+			i++;
+		}
+		i = 0;
 		free(line);
 		line = get_next_line(fd);
-		// if (line[0] != '1' || line[ft_strlen(line) - 3] != '1')
-		// 	return (0);
+		
+		ft_lstadd_back_sl(&matrice, new_matrice);
 		height++;
 	}
 	window_size->width = width;

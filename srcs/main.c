@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/30 10:45:26 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/01 21:55:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,21 +19,24 @@ int	main(int arv, char **arg)
 	int		res_parsing;
 	char	*path;
 	t_size	window_size;
-
+	t_tab	*matrice;
+	t_tab	*ptr_matrice;
+	
+	matrice = (t_tab *)malloc(sizeof(t_tab));
+	matrice->tab = NULL;
+	matrice->next = NULL;
+	ptr_matrice = matrice;
 	path = ft_strjoin("maps/", arg[1]);
 	if (!path)
 		return (free(path), 0);
 	fd = open(path, O_RDONLY);
-	res_parsing = parsing_handling(fd, path, &window_size);
-	
-	//gere les messages d'erreurs
+	res_parsing = parsing_handling(fd, path, &window_size, matrice);
 	if (res_parsing == 0)
 	{
 		printf("\nla map contient une erreur ou le chemin n'est pas bon\n");
 		return (0);
 	}
-	printf("res_parsing = %d\n", res_parsing);
-	window_handling(&window_size);
+	window_handling(&window_size, ptr_matrice);
 	printf("%d", arv);
 	free(path);
 }

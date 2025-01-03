@@ -45,6 +45,7 @@ NAME    = so_long
 SRC     = srcs/main.c \
           srcs/parser.c \
           srcs/window_handling.c \
+          srcs/so_long_utils.c \
           ../gnl/get_next_line.c \
           ../gnl/get_next_line_utils.c
 OBJ_DIR = objs
