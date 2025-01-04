@@ -22,24 +22,23 @@ typedef struct s_tab
 	struct s_tab	*next;
 }					t_tab;
 
-# include "../../gnl/get_next_line.h"
-# include "../../libft/libft.h"
+# include "../../../finished/gnl/get_next_line.h"
+# include "../../../finished/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
-
 
 //parsing.c
 size_t				count_wall(char *str);
 int					parsing_handling(int fd, char *path, t_size *window_size,
 						t_tab *matrice);
+
 //utils.c
 t_tab				*ft_lstlast_sl(t_tab *lst);
 void				ft_lstadd_back_sl(t_tab **lst, t_tab *new);
 void				free_matrice(t_tab *matrice);
 
 //window_handling.c
-int					create_wall(t_data img, int i, int	j);
-int					create_floor(t_data img, int i, int	j);
+int					create_img(t_data img, int i, int	j, int color);
 void				create_map(t_data img, t_tab *matrice, t_size *window_size);
 void				window_handling(t_size *window_size, t_tab *matrice);
 

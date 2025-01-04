@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   window_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:10:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/01 22:10:21 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/04 17:55:03 by ifounas          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../minilibx-linux/mlx.h"
 #include "so_long.h"
@@ -22,20 +22,26 @@ static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 // first creat wall function
-int	create_wall(t_data img, int i, int	j)
+int	create_img(t_data img, int i, int	j, int color)
 {
 	int	k;
 	int	q;
+	t_data img;
 
 	k = i;	
 	if (j == 0)
 		j++;
 	q = (j * 60) - 60;
+	// img.img = mlx_new_image(mlx, window_size->width * 60, window_size->height
+	// 		* 60);
+	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+	// 		&img.endian);
+	// mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	while (i < k + 60)
 	{
 		while (q < j * 60)
 		{
-			my_mlx_pixel_put(&img, i, q, 0xFFFFFFFF);
+			my_mlx_pixel_put(&img, i, q, color);
 			q++;
 		}
 		q = (j * 60) - 60;
@@ -43,30 +49,8 @@ int	create_wall(t_data img, int i, int	j)
 	}
 	return (i);
 }
-int	create_floor(t_data img, int i, int	j)
-{
-	int	k;
-	int q;
 
-	k = i;
-	if (j == 0)
-		j++;
-	q = (j * 60) - 60;
-	while (i < k + 60)
-	{
-		while (q < j * 60)
-		{
-			my_mlx_pixel_put(&img, i, q, 0x0000FFFF);
-			q++;
-		}
-		q = (j * 60) - 60;
-		i++;
-	}
-	
-	return (i);
-}
-
-void	create_map(t_data img, t_tab *matrice, t_size *window_size)
+void	create_map(t_data img, t_tab *matrice, t_size *window_size, void *mlx, void *mlx_win)
 {
 	t_tab	*ptr_to_matrice;
 	int		i;
@@ -83,10 +67,18 @@ void	create_map(t_data img, t_tab *matrice, t_size *window_size)
 		{
 			if (ptr_to_matrice->tab != NULL)
 			{
+				if (ptr_to_matrice->tab[i] != 1 && ptr_to_matrice->tab[i] != 0)
+					ptr_to_matrice->tab[i] += 48;
 				if (ptr_to_matrice->tab[i] == 1)
-					axe_x = create_wall(img, axe_x, j);
+					axe_x = create_img(img, axe_x, j, 0xFFFFFFFF);
 				else if (ptr_to_matrice->tab[i] == 0)
-					axe_x = create_floor(img, axe_x, j);
+					axe_x = create_img(img, axe_x, j, 0x0000FFFF);
+				else if (ptr_to_matrice->tab[i] == 'C')
+					axe_x = create_img(img, axe_x, j, 0x0000F145);
+				else if (ptr_to_matrice->tab[i] == 'P')
+					axe_x = create_img(img, axe_x, j, 0x12456789);
+				else if (ptr_to_matrice->tab[i] == 'E')
+					axe_x = create_img(img, axe_x, j, 0xFFFFF145);
 			}
 			i++;
 		}
@@ -111,7 +103,7 @@ void	window_handling(t_size *window_size, t_tab *matrice)
 			* 60);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
-	create_map(img, matrice, window_size);
+	create_map(img, matrice, window_size, mlx, mlx_win);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
