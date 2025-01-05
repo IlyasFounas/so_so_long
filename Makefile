@@ -1,18 +1,15 @@
-
-
-NAME    = so_long
 SRC     = srcs/main.c \
           srcs/parser.c \
           srcs/window_handling.c \
           srcs/so_long_utils.c \
-          ../../finished/gnl/get_next_line.c \
-          ../../finished/gnl/get_next_line_utils.c
+          ../gnl/get_next_line.c \
+          ../gnl/get_next_line_utils.c
 OBJ_DIR = objs
 OBJ     = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 CFLAGS  = -Wall -Wextra -Werror -Imlx-linux -I/usr/include -I../libft/includes
 CC      = cc
 
-LIBFT_DIR = ../../finished/libft
+LIBFT_DIR = ../libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 MLX_DIR = minilibx-linux
@@ -21,11 +18,11 @@ MLX_LIBS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBFT) $(MLX_LIBS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: srcs/%.c ../../finished/gnl/get_next_line.h
+$(OBJ_DIR)/%.o: srcs/%.c ../gnl/get_next_line.h
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: ../../finished/gnl/%.c ../../finished/gnl/get_next_line.h
+$(OBJ_DIR)/%.o: ../gnl/%.c ../gnl/get_next_line.h
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 

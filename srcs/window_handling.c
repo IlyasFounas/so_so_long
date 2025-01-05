@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   window_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:10:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/04 18:59:46 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/05 17:50:41 by marvin           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../minilibx-linux/mlx.h"
 #include "so_long.h"
@@ -89,18 +89,22 @@ int	create_img(int color, void *mlx, void *mlx_win, int axe_x, int axe_y)
 {
 	int	i;
 	int	j;
+	int img_width;
+	int img_height;
+	void *img_void;
 	t_data img;
 	
 	i = 0;
 	j = 0;
-	color = 0;
-	printf("print\n");
-	img.img = mlx_new_image(mlx, 60, 60);
+	img.img = mlx_new_image(mlx, 16, 16);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
-	while (i < 60)
+	img_void = mlx_xpm_file_to_image(mlx, "assets/Tree.xpm", &img_width, &img_height);
+	if (!img_void)
+		printf("trh\n");
+	while (i < 16)
 	{
-		while (j < 60)
+		while (j < 16)
 		{
 			my_mlx_pixel_put(&img, i, j, color);
 			j++;
@@ -156,16 +160,17 @@ void	window_handling(t_size *window_size, t_tab *matrice)
 {
 	void	*mlx;
 	void	*mlx_win;
-	// t_data	img;
+	void	*grass;
+	int	img_w;
+	int	img_h;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, window_size->width * 60, window_size->height
-			* 60, "SO_LONG");
-	// img.img = mlx_new_image(mlx, window_size->width * 60, window_size->height
-	// 		* 60);
-	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-	// 		&img.endian);
+	mlx = mlx_init();	
+	grass = mlx_xpm_file_to_image(mlx, "assets/Grass1.xpm", &img_w, &img_h);
+	if (!grass)
+		return ;
+	mlx_win = mlx_new_window(mlx, window_size->width * img_w, window_size->height
+			* img_h, "SO_LONG");
 	create_map(matrice, window_size, mlx, mlx_win);
-	// mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_put_image_to_window(mlx, mlx_win, grass, 0, 0);
 	mlx_loop(mlx);
 }

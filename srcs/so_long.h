@@ -22,8 +22,8 @@ typedef struct s_tab
 	struct s_tab	*next;
 }					t_tab;
 
-# include "../../../finished/gnl/get_next_line.h"
-# include "../../../finished/libft/libft.h"
+# include "../../gnl/get_next_line.h"
+# include "../../libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 
