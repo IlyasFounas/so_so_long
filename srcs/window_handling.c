@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:10:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/05 17:50:41 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/05 20:22:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -89,9 +89,6 @@ int	create_img(int color, void *mlx, void *mlx_win, int axe_x, int axe_y)
 {
 	int	i;
 	int	j;
-	int img_width;
-	int img_height;
-	void *img_void;
 	t_data img;
 	
 	i = 0;
@@ -99,9 +96,6 @@ int	create_img(int color, void *mlx, void *mlx_win, int axe_x, int axe_y)
 	img.img = mlx_new_image(mlx, 16, 16);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
-	img_void = mlx_xpm_file_to_image(mlx, "assets/Tree.xpm", &img_width, &img_height);
-	if (!img_void)
-		printf("trh\n");
 	while (i < 16)
 	{
 		while (j < 16)
@@ -114,6 +108,23 @@ int	create_img(int color, void *mlx, void *mlx_win, int axe_x, int axe_y)
 	}
 	mlx_put_image_to_window(mlx, mlx_win, img.img, axe_x, (axe_y - 1)*60);
 	return (i);
+}
+
+int	create_object(void *mlx, void *mlx_win , char *path, int axe_x, int axe_y)
+{
+	int img_width;
+	int img_height;
+	void *img_void;
+	
+	img_void = mlx_xpm_file_to_image(mlx, "assets/Grass1.xpm", &img_width, &img_height);
+	if (!img_void)
+		return (img_width);
+	mlx_put_image_to_window(mlx, mlx_win, img_void, axe_x, (axe_y - 1)*img_width);
+	img_void = mlx_xpm_file_to_image(mlx, path, &img_width, &img_height);
+	if (!img_void)
+		return (img_width);
+	mlx_put_image_to_window(mlx, mlx_win, img_void, axe_x, (axe_y - 1)*img_width);
+	return (img_width);
 }
 
 void	create_map(t_tab *matrice, t_size *window_size, void *mlx, void *mlx_win)
@@ -133,18 +144,30 @@ void	create_map(t_tab *matrice, t_size *window_size, void *mlx, void *mlx_win)
 		{
 			if (ptr_to_matrice->tab != NULL)
 			{
+				// if (ptr_to_matrice->tab[i] != 1 && ptr_to_matrice->tab[i] != 0)
+				// 	ptr_to_matrice->tab[i] += 48;
+				// if (ptr_to_matrice->tab[i] == 1)
+				// 	axe_x += create_img(0xFFFFFFFF, mlx, mlx_win, axe_x, axe_y);
+				// else if (ptr_to_matrice->tab[i] == 0)
+				// 	axe_x += create_img(0x0000FFFF, mlx, mlx_win, axe_x, axe_y);
+				// else if (ptr_to_matrice->tab[i] == 'C')
+				// 	axe_x += create_img(0x0000F145, mlx, mlx_win, axe_x, axe_y);
+				// else if (ptr_to_matrice->tab[i] == 'P')
+				// 	axe_x += create_img(0x12456789, mlx, mlx_win, axe_x, axe_y);
+				// else if (ptr_to_matrice->tab[i] == 'E')
+				// 	axe_x += create_img(0xFFFFF145, mlx, mlx_win, axe_x, axe_y);
 				if (ptr_to_matrice->tab[i] != 1 && ptr_to_matrice->tab[i] != 0)
 					ptr_to_matrice->tab[i] += 48;
 				if (ptr_to_matrice->tab[i] == 1)
-					axe_x += create_img(0xFFFFFFFF, mlx, mlx_win, axe_x, axe_y);
+					axe_x += create_object(mlx, mlx_win, "assets/Tree.xpm", axe_x, axe_y);
 				else if (ptr_to_matrice->tab[i] == 0)
-					axe_x += create_img(0x0000FFFF, mlx, mlx_win, axe_x, axe_y);
+					axe_x += create_object(mlx, mlx_win, "assets/Grass1.xpm", axe_x, axe_y);
 				else if (ptr_to_matrice->tab[i] == 'C')
-					axe_x += create_img(0x0000F145, mlx, mlx_win, axe_x, axe_y);
+					axe_x += create_object(mlx, mlx_win, "assets/Tree.xpm", axe_x, axe_y);
 				else if (ptr_to_matrice->tab[i] == 'P')
-					axe_x += create_img(0x12456789, mlx, mlx_win, axe_x, axe_y);
+					axe_x += create_object(mlx, mlx_win, "assets/Tree.xpm", axe_x, axe_y);
 				else if (ptr_to_matrice->tab[i] == 'E')
-					axe_x += create_img(0xFFFFF145, mlx, mlx_win, axe_x, axe_y);
+					axe_x += create_object(mlx, mlx_win, "assets/Tree.xpm", axe_x, axe_y);
 			}
 			i++;
 		}
@@ -171,6 +194,5 @@ void	window_handling(t_size *window_size, t_tab *matrice)
 	mlx_win = mlx_new_window(mlx, window_size->width * img_w, window_size->height
 			* img_h, "SO_LONG");
 	create_map(matrice, window_size, mlx, mlx_win);
-	mlx_put_image_to_window(mlx, mlx_win, grass, 0, 0);
 	mlx_loop(mlx);
 }

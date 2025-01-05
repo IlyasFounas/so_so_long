@@ -41,10 +41,9 @@ void				free_matrice(t_tab *matrice);
 // int					create_img(t_data img, int i, int	j, int color);
 // void				create_map(t_data img, t_tab *matrice, t_size *window_size);
 
-int					create_img(int color, void *mlx, void *mlx_win, int axe_x,
-						int axe_y);
-void				create_map(t_tab *matrice, t_size *window_size, void *mlx,
-						void *mlx_win);
-void				window_handling(t_size *window_size, t_tab *matrice);
+int	create_object(void *mlx, void *mlx_win , char *path, int axe_x, int axe_y);
+int	create_img(int color, void *mlx, void *mlx_win, int axe_x, int axe_y);
+void	create_map(t_tab *matrice, t_size *window_size, void *mlx, void *mlx_win);
+void	window_handling(t_size *window_size, t_tab *matrice);
 
 #endif
