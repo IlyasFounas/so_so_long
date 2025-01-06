@@ -2,6 +2,7 @@
 #           srcs/parser.c \
 #           srcs/window_handling.c \
 #           srcs/so_long_utils.c \
+#           srcs/event_handling.c \
 #           ../gnl/get_next_line.c \
 #           ../gnl/get_next_line_utils.c
 # OBJ_DIR = objs
@@ -53,6 +54,7 @@ NAME    = so_long
 SRC     = srcs/main.c \
           srcs/parser.c \
           srcs/window_handling.c \
+          srcs/event_handling.c \
           srcs/so_long_utils.c \
           ../../finished/gnl/get_next_line.c \
           ../../finished/gnl/get_next_line_utils.c

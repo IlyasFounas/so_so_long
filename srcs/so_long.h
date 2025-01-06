@@ -22,28 +22,42 @@ typedef struct s_tab
 	struct s_tab	*next;
 }					t_tab;
 
-# include "../../gnl/get_next_line.h"
-# include "../../libft/libft.h"
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+	void	*hero;
+	int	**matrice_of_m;
+	int	width;
+	int	height;
+}				t_vars;
+
+typedef struct	s_axes {
+	int	axe_x;
+	int	axe_y;
+}				t_axes;
+
+// # include "../../gnl/get_next_line.h"
+// # include "../../libft/libft.h"
+# include "../../../finished/gnl/get_next_line.h"
+# include "../../../finished/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 // parsing.c
-size_t				count_wall(char *str);
-int					parsing_handling(int fd, char *path, t_size *window_size,
-						t_tab *matrice);
+int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
 
 // utils.c
-t_tab				*ft_lstlast_sl(t_tab *lst);
-void				ft_lstadd_back_sl(t_tab **lst, t_tab *new);
-void				free_matrice(t_tab *matrice);
+t_tab	*ft_lstlast_sl(t_tab *lst);
+void	ft_lstadd_back_sl(t_tab **lst, t_tab *new);
+void	free_matrice(t_tab *matrice);
 
 // window_handling.c
-// int					create_img(t_data img, int i, int	j, int color);
-// void				create_map(t_data img, t_tab *matrice, t_size *window_size);
-
-int	create_object(void *mlx, void *mlx_win , char *path, int axe_x, int axe_y);
-int	create_img(int color, void *mlx, void *mlx_win, int axe_x, int axe_y);
-void	create_map(t_tab *matrice, t_size *window_size, void *mlx, void *mlx_win);
+int	create_object(t_vars *vars, char *path, int axe_x, int axe_y);
+void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars);
 void	window_handling(t_size *window_size, t_tab *matrice);
+
+// event_handling.h
+int	manage_event(int keycode, t_vars *vars);
 
 #endif
