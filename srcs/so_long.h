@@ -34,6 +34,7 @@ typedef struct	s_vars {
 typedef struct	s_axes {
 	int	axe_x;
 	int	axe_y;
+	int	yes_or_no;
 }				t_axes;
 
 // # include "../../gnl/get_next_line.h"

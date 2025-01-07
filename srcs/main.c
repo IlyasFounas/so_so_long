@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/06 13:17:59 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:13:01 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int arv, char **arg)
 		printf("\nla map contient une erreur ou le chemin n'est pas bon\n");
 		return (0);
 	}
+	printf("here1\n");
 	window_handling(&window_size, ptr_matrice);
 	printf("%d", arv);
 	free(path);

@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:21:11 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/06 15:22:36 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:59:13 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	free_matrice(t_tab *matrice)
 		free(matrice);
 		matrice = tmp;
 	}
+}
+
+void	free_matrice_of_m()
+{
+	
 }
 
 t_tab	*ft_lstlast_sl(t_tab *lst)

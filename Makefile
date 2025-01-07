@@ -60,7 +60,7 @@ SRC     = srcs/main.c \
           ../../finished/gnl/get_next_line_utils.c
 OBJ_DIR = objs
 OBJ     = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
-CFLAGS  = -Wall -Wextra -Werror -Imlx-linux -I/usr/include -I../libft/includes
+CFLAGS  = -Wall -Wextra -Werror -g3 -Imlx-linux -I/usr/include -I../libft/includes
 CC      = cc
 
 LIBFT_DIR = ../../finished/libft
