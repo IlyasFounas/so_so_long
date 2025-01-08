@@ -6,17 +6,13 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/06 15:14:06 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/08 11:09:04 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // # include "../../libft/libft.h"
 #include "../../../finished/libft/libft.h"
 #include "so_long.h"
-
-// TODO : ft verif
-// if (ft_strchr(line, '0') != NULL)
-// 	return (free(line), 0);
 
 t_tab	*fill_the_matrice(char *line)
 {
