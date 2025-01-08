@@ -6,14 +6,14 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/08 11:05:40 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/08 18:51:36 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minilibx-linux/mlx.h"
 #include "so_long.h"
 
-int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
+static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 {
 	int		img_width;
 	int		img_height;
@@ -23,15 +23,16 @@ int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 	if (!img_void)
 		return (img_width);
 	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x, (axe_y - 1)
-		* img_width);
+		* img_height);
 	if (ft_strncmp(path, "assets/Hero.xpm", ft_strlen("assets/Hero.xpm")) == 0)
 		vars->hero = img_void;
 	return (img_width);
 }
 
-int	verif_object(int axe_x, int axe_y, t_vars *vars, t_tab *ptr_to_matrice,
+static int	verif_object(int axe_x, int axe_y, t_vars *vars, t_tab *ptr_to_matrice,
 		int i)
 {
+	printf(" %d ", (ptr_to_matrice->tab[i]));
 	if (ptr_to_matrice->tab[i] != 1 && ptr_to_matrice->tab[i] != 0)
 		ptr_to_matrice->tab[i] += 48;
 	if (ptr_to_matrice->tab[i] == 1)
@@ -47,7 +48,7 @@ int	verif_object(int axe_x, int axe_y, t_vars *vars, t_tab *ptr_to_matrice,
 	return (axe_x);
 }
 
-void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
+static void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
 		t_tab *ptr_to_matrice, int axe_y)
 {
 	int	i;
@@ -55,6 +56,8 @@ void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
 
 	i = 0;
 	axe_x = 0;
+	if (axe_y == 0)
+		return ;
 	vars->matrice_of_m[axe_y] = malloc(window_size->width * sizeof(int));
 	if (!vars->matrice_of_m)
 		return ;
@@ -70,15 +73,16 @@ void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
 		}
 		i++;
 	}
+	printf("\n");
 }
 
-void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars)
+static void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars)
 {
 	t_tab	*ptr_to_matrice;
 	int		axe_y;
 
 	axe_y = 0;
-	vars->matrice_of_m = malloc(window_size->height * sizeof(int));
+	vars->matrice_of_m = malloc(window_size->height);
 	if (!vars->matrice_of_m)
 		return ;
 	while (matrice)
@@ -88,6 +92,7 @@ void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars)
 		axe_y++;
 		matrice = matrice->next;
 	}
+	printf("hi\n");
 	vars->width = window_size->width;
 	vars->height = window_size->height;
 	free_matrice(ptr_to_matrice);

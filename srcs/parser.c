@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/08 11:09:04 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/08 18:39:18 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../../finished/libft/libft.h"
 #include "so_long.h"
 
-t_tab	*fill_the_matrice(char *line)
+static t_tab	*fill_the_matrice(char *line)
 {
 	int i = 0;
 	t_tab *new_matrice;
@@ -51,7 +51,8 @@ int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
 			return (0);
 		free(line);
 		line = get_next_line(fd);
-		ft_lstadd_back_sl(&matrice, new_matrice);
+		if (new_matrice != NULL)
+			ft_lstadd_back_sl(&matrice, new_matrice);
 		window_size->height++;
 	}
 	free(line);

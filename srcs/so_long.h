@@ -45,20 +45,28 @@ typedef struct	s_axes {
 # include <stdio.h>
 # include <stdlib.h>
 
-// parsing.c
-int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
-
 // utils.c
 t_tab	*ft_lstlast_sl(t_tab *lst);
 void	ft_lstadd_back_sl(t_tab **lst, t_tab *new);
 void	free_matrice(t_tab *matrice);
 
+// event_utils.c
+int finished_or_not(t_vars *vars);
+void	allow_to_exit(t_vars *vars, char *path);
+
+// event_handling.c
+t_axes	*find_t_axes(t_vars *vars, char *path);
+
+// event_managing.c
+int	manage_event(int keycode, t_vars *vars);
+
 // window_handling.c
-int	create_object(t_vars *vars, char *path, int axe_x, int axe_y);
-void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars);
 void	window_handling(t_size *window_size, t_tab *matrice);
 
-// event_handling.h
-int	manage_event(int keycode, t_vars *vars);
+// find_errors_in_map
+// >>>>>>>TODO<<<<<<<
+
+// parsing.c
+int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
 
 #endif
