@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/08 18:51:36 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/09 16:58:06 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 	return (img_width);
 }
 
-static int	verif_object(int axe_x, int axe_y, t_vars *vars, t_tab *ptr_to_matrice,
-		int i)
+static int	verif_object(int axe_x, int axe_y, t_vars *vars,
+		t_tab *ptr_to_matrice, int i)
 {
 	printf(" %d ", (ptr_to_matrice->tab[i]));
 	if (ptr_to_matrice->tab[i] != 1 && ptr_to_matrice->tab[i] != 0)
@@ -56,10 +56,9 @@ static void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
 
 	i = 0;
 	axe_x = 0;
-	if (axe_y == 0)
-		return ;
+	printf("%d", axe_y);
 	vars->matrice_of_m[axe_y] = malloc(window_size->width * sizeof(int));
-	if (!vars->matrice_of_m)
+	if (!vars->matrice_of_m[axe_y])
 		return ;
 	while (i < window_size->width)
 	{
@@ -82,7 +81,7 @@ static void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars)
 	int		axe_y;
 
 	axe_y = 0;
-	vars->matrice_of_m = malloc(window_size->height);
+	vars->matrice_of_m = malloc((window_size->height + 1) * sizeof(int *));
 	if (!vars->matrice_of_m)
 		return ;
 	while (matrice)
@@ -92,10 +91,9 @@ static void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars)
 		axe_y++;
 		matrice = matrice->next;
 	}
-	printf("hi\n");
 	vars->width = window_size->width;
 	vars->height = window_size->height;
-	free_matrice(ptr_to_matrice);
+	// free_matrice(ptr_to_matrice);
 }
 
 void	window_handling(t_size *window_size, t_tab *matrice)
@@ -105,6 +103,7 @@ void	window_handling(t_size *window_size, t_tab *matrice)
 	int		img_h;
 	t_vars	vars;
 
+	vars.matrice_of_m = NULL;
 	vars.mlx = mlx_init();
 	img_ptr = mlx_xpm_file_to_image(vars.mlx, "assets/Grass1.xpm", &img_w,
 			&img_h);

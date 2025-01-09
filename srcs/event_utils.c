@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_hook.c                                       :+:      :+:    :+:   */
+/*   event_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:59:48 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/08 18:11:00 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/09 17:24:22 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,17 @@ void	allow_to_exit(t_vars *vars, char *path)
 						&img_width, &img_height);
 				mlx_put_image_to_window(vars->mlx, vars->win, exit, x
 					* img_width, (y - 1) * img_height);
+				vars->matrice_of_m[y][x] = 'e';
 			}
 			x++;
 		}
 		x = 0;
 		y++;
 	}
+}
+
+void	finish_the_game(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
 }

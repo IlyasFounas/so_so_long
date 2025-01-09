@@ -53,6 +53,7 @@ void	free_matrice(t_tab *matrice);
 // event_utils.c
 int finished_or_not(t_vars *vars);
 void	allow_to_exit(t_vars *vars, char *path);
+void	finish_the_game(t_vars *vars);
 
 // event_handling.c
 t_axes	*find_t_axes(t_vars *vars, char *path);

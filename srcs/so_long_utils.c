@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:21:11 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/08 19:12:20 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/09 10:46:23 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,15 @@ void	free_matrice(t_tab *matrice)
 	}
 }
 
-// t_tab	*ft_lstlast_sl(t_tab *lst)
-// {
-// 	t_tab	*ptr;
-
-// 	if (!lst)
-// 		return (NULL);
-// 	ptr = NULL;
-// 	while (lst)
-// 	{
-// 		ptr = lst;
-// 		if (lst->next == NULL)
-// 			return (ptr);
-// 		lst = lst->next;
-// 	}
-// 	return (ptr);
-// }
-
 t_tab *ft_lstlast_sl(t_tab *lst)
 {
     t_tab *ptr;
 
     if (!lst)
         return (NULL);
-    ptr = NULL;
     while (lst)
     {
         ptr = lst;
-        if (lst->next == NULL)
-            return (ptr);
         lst = lst->next;
     }
     return (ptr);

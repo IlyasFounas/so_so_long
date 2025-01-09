@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/08 18:33:33 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:09:28 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int	main(int arv, char **arg)
 	matrice->tab = NULL;
 	matrice->next = NULL;
 	ptr_matrice = matrice;
-	
+	window_size.height = 0;
+	window_size.width = 0;
 	path = ft_strjoin("maps/", arg[arv - 1]);
 	if (!path)
 		return (free(path), 0);
 	fd = open(path, O_RDONLY);
-	
 	res_parsing = parsing_handling(fd, path, &window_size, matrice);
 	if (res_parsing == 0)
 		printf("\nla map contient une erreur ou le chemin n'est pas bon\n");
