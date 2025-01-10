@@ -52,12 +52,10 @@
 
 NAME    = so_long
 SRC     = srcs/main.c \
-          srcs/parser.c \
+          srcs/map_parsing.c \
           srcs/window_handling.c \
           srcs/event_handling.c \
-          srcs/event_utils.c \
           srcs/event_managing.c \
-          srcs/so_long_utils.c \
           ../../finished/gnl/get_next_line.c \
           ../../finished/gnl/get_next_line_utils.c
 OBJ_DIR = objs
@@ -96,7 +94,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	valgrind ./$(NAME) map1.ber
+	./$(NAME) map1.ber
 
 all: $(NAME)
 

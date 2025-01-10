@@ -45,12 +45,7 @@ typedef struct	s_axes {
 # include <stdio.h>
 # include <stdlib.h>
 
-// utils.c
-t_tab	*ft_lstlast_sl(t_tab *lst);
-void	ft_lstadd_back_sl(t_tab **lst, t_tab *new);
-void	free_matrice(t_tab *matrice);
-
-// event_utils.c
+// main.c
 int finished_or_not(t_vars *vars);
 void	allow_to_exit(t_vars *vars, char *path);
 void	finish_the_game(t_vars *vars);
@@ -64,10 +59,11 @@ int	manage_event(int keycode, t_vars *vars);
 // window_handling.c
 void	window_handling(t_size *window_size, t_tab *matrice);
 
-// find_errors_in_map
-// >>>>>>>TODO<<<<<<<
+// error_managing
 
-// parsing.c
+
+// map_parsing.c
+void	free_matrice(t_tab *matrice);
 int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
 
 #endif

@@ -1,18 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/09 10:51:27 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/10 11:38:43 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // # include "../../libft/libft.h"
 #include "../../../finished/libft/libft.h"
-#include "so_long.h"
+#include "../includes/so_long.h"
+
+
+void	free_matrice(t_tab *matrice)
+{
+	t_tab	*tmp;
+
+	while (matrice)
+	{
+		tmp = matrice->next;
+		if (matrice->tab)
+			free(matrice->tab);
+		free(matrice);
+		matrice = tmp;
+	}
+}
+
+static t_tab *ft_lstlast_sl(t_tab *lst)
+{
+    t_tab *ptr;
+
+    if (!lst)
+        return (NULL);
+    while (lst)
+    {
+        ptr = lst;
+        lst = lst->next;
+    }
+    return (ptr);
+}
+
+
+
+static void	ft_lstadd_back_sl(t_tab **lst, t_tab *new)
+{
+	if (*lst)
+		ft_lstlast_sl(*lst)->next = new;
+	else
+		*lst = new;
+}
 
 static t_tab	*fill_the_matrice(char *line)
 {

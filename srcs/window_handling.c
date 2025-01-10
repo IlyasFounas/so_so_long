@@ -6,12 +6,12 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/09 16:58:06 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/10 11:35:11 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minilibx-linux/mlx.h"
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 {
@@ -32,7 +32,6 @@ static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 static int	verif_object(int axe_x, int axe_y, t_vars *vars,
 		t_tab *ptr_to_matrice, int i)
 {
-	printf(" %d ", (ptr_to_matrice->tab[i]));
 	if (ptr_to_matrice->tab[i] != 1 && ptr_to_matrice->tab[i] != 0)
 		ptr_to_matrice->tab[i] += 48;
 	if (ptr_to_matrice->tab[i] == 1)
@@ -56,7 +55,6 @@ static void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
 
 	i = 0;
 	axe_x = 0;
-	printf("%d", axe_y);
 	vars->matrice_of_m[axe_y] = malloc(window_size->width * sizeof(int));
 	if (!vars->matrice_of_m[axe_y])
 		return ;
@@ -72,7 +70,6 @@ static void	fill_the_matrice_of_m(t_size *window_size, t_vars *vars,
 		}
 		i++;
 	}
-	printf("\n");
 }
 
 static void	create_map(t_tab *matrice, t_size *window_size, t_vars *vars)
