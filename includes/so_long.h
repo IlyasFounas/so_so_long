@@ -50,6 +50,9 @@ int finished_or_not(t_vars *vars);
 void	allow_to_exit(t_vars *vars, char *path);
 void	finish_the_game(t_vars *vars);
 
+// error_managing
+void	enemy_managing(t_vars *vars);
+
 // event_handling.c
 t_axes	*find_t_axes(t_vars *vars, char *path);
 
@@ -57,13 +60,13 @@ t_axes	*find_t_axes(t_vars *vars, char *path);
 int	manage_event(int keycode, t_vars *vars);
 
 // window_handling.c
-void	window_handling(t_size *window_size, t_tab *matrice);
+void	window_handling(t_size *window_size, t_vars *vars);
 
-// error_managing
+// error_managing.c
 int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);
 
 // map_parsing.c
 void	free_matrice(t_tab *matrice);
-int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
+void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
 
 #endif

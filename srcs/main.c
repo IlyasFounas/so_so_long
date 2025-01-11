@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/11 16:00:27 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/11 19:39:34 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ void	finish_the_game(t_vars *vars)
 int	main(int arv, char **arg)
 {
 	int		fd;
-	int		res_parsing;
 	char	*path;
 	t_size	window_size;
 	t_tab	*matrice;
 	t_tab	*ptr_matrice;
+	t_vars	vars;
 	
+	vars.matrice_of_m = NULL;
 	matrice = (t_tab *)malloc(sizeof(t_tab));
 	matrice->tab = NULL;
 	matrice->next = NULL;
@@ -90,7 +91,8 @@ int	main(int arv, char **arg)
 	fd = open(path, O_RDONLY);
 	parsing_handling(fd, path, &window_size, matrice);
 	free(path);
-	if (is_the_map_correct(matrice, &window_size) == 0)
+	if (is_the_map_correct(ptr_matrice, &window_size, &vars) == 0)
 		exit(0);
-	window_handling(&window_size, ptr_matrice);
+	enemy_managing(&vars);
+	window_handling(&window_size, &vars);
 }
