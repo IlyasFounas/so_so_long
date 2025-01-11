@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/10 12:42:44 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:00:27 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,9 @@ int	main(int arv, char **arg)
 	if (!path)
 		return (free(path), 0);
 	fd = open(path, O_RDONLY);
-	res_parsing = parsing_handling(fd, path, &window_size, matrice);
-	if (is_the_map_correct(matrice, &window_size) == 0)
-	{
-		free(path);
-		exit(0);		
-	}
-	if (res_parsing == 0)
-		printf("\nla map contient une erreur ou le chemin n'est pas bon\n");
-	window_handling(&window_size, ptr_matrice);
+	parsing_handling(fd, path, &window_size, matrice);
 	free(path);
+	if (is_the_map_correct(matrice, &window_size) == 0)
+		exit(0);
+	window_handling(&window_size, ptr_matrice);
 }

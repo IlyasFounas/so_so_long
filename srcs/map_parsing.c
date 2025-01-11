@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/10 11:38:43 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:00:00 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,4 @@ int	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
 		window_size->height++;
 	}
 	free(line);
-	return (1);
 }

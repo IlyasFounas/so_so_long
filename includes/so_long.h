@@ -60,7 +60,7 @@ int	manage_event(int keycode, t_vars *vars);
 void	window_handling(t_size *window_size, t_tab *matrice);
 
 // error_managing
-
+int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);
 
 // map_parsing.c
 void	free_matrice(t_tab *matrice);
