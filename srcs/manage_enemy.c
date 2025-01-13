@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_managing.c                                   :+:      :+:    :+:   */
+/*   manage_enemy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 19:28:06 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/11 19:56:45 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/13 15:35:05 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #include "../minilibx-linux/mlx.h"
 
-void	enemy_managing(t_vars *vars)
+void	manage_enemy(t_vars *vars)
 {
 	int		y;
 	int		x;
@@ -39,7 +39,7 @@ void	enemy_managing(t_vars *vars)
 		}
 		x = 0;
 	}
-    printf("%d %d \n", pos_enemie->axe_x, pos_hero->axe_x);
+    // ft_printf("%d %d \n", pos_enemie->axe_x, pos_hero->axe_x);
 	free(pos_hero);
 	free(pos_enemie);
 }

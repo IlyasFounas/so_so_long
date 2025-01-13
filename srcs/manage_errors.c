@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_managing.c                                   :+:      :+:    :+:   */
+/*   manage_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/11 18:09:10 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/13 17:14:51 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 
 /*
 
+//////////////////PARTIE OBLIGATOIRE///////////////////////
+
+redimensioner la fenetre
+
 chemin valide
 
-1 0 P E C A
+remplacer les assets
+
+leaks
 
 */
 
@@ -25,7 +31,8 @@ static int	verif_border_wall(t_vars *vars, int y, int x)
 {
 	if (y > 1)
 	{
-		if (vars->matrice_of_m[y][0] != 1 || vars->matrice_of_m[y][vars->width - 1] != 1)
+		if (vars->matrice_of_m[y][0] != 1 || vars->matrice_of_m[y][vars->width
+			- 1] != 1)
 			return (0);
 	}
 	while (++x < vars->width)
@@ -39,29 +46,29 @@ static int	verif_border_wall(t_vars *vars, int y, int x)
 
 static int	verif_nb_characters(t_vars *vars, int y, int x)
 {
-	static int	exit;
+	static int	exitNDstart;
 	static int	item;
-	static int	start;
+	int			c;
 
-	if (!exit)
-		exit = 0;
+	if (!exitNDstart)
+		exitNDstart = 0;
 	if (!item)
 		item = 0;
-	if (!start)
-		start = 0;
 	while (++x < vars->width)
 	{
 		if (vars->matrice_of_m[y][x] != 0 && vars->matrice_of_m[y][x] != 1)
 			vars->matrice_of_m[y][x] += 48;
-		if (vars->matrice_of_m[y][x] == 'E')
-			exit++;
-		if (vars->matrice_of_m[y][x] == 'C')
+		c = vars->matrice_of_m[y][x];
+		if (c == 'E' || c == 'P')
+			exitNDstart++;
+		if (c == 'C')
 			item++;
-		if (vars->matrice_of_m[y][x] == 'P')
-			start++;
+		if (c != 1 && c != 0 && c != 'P' && c != 'E' && c != 'S' && c != 'A'
+			&& c != 'C')
+			return (0);
 	}
 	if (y == vars->height)
-		if (exit > 1 || item < 1 || start > 1)
+		if ((exitNDstart > 2 || exitNDstart < 2) || item < 1)
 			return (0);
 	return (1);
 }
@@ -99,19 +106,23 @@ int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
 {
 	int	y;
 
-	y = 0;
+	y = -1;
 	create_array2D(matrice, window_size, vars);
 	vars->height = window_size->height;
 	vars->width = window_size->width;
-	while (y <= vars->height)
+	while (++y <= vars->height)
 	{
 		if (verif_nb_characters(vars, y, -1) == 0 || vars->height >= vars->width
 			|| verif_border_wall(vars, y, -1) == 0)
 		{
-			printf("Error\n");
+			ft_printf("Error\n");
 			return (0);
 		}
-		y++;
 	}
+	// if (is_the_path_valid_or_not(vars) == 0)
+	// {
+	// 	ft_printf("Error\n");
+	// 	return (0);
+	// }
 	return (1);
 }

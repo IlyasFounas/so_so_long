@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_handling.c                                  :+:      :+:    :+:   */
+/*   create_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/11 19:24:50 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/13 13:12:29 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,13 @@ static void	create_map(t_size *window_size, t_vars *vars)
 	vars->height = window_size->height;
 }
 
-void	window_handling(t_size *window_size, t_vars *vars)
+int mouse_hook(int keycode)
+{
+	exit (0);
+	return (keycode);
+}
+
+void	create_window(t_size *window_size, t_vars *vars)
 {
 	void	*img_ptr;
 	int		img_w;
@@ -84,6 +90,9 @@ void	window_handling(t_size *window_size, t_vars *vars)
 	vars->win = mlx_new_window(vars->mlx, window_size->width * img_w,
 			window_size->height * img_h, "SO_LONG");
 	create_map(window_size, vars);
-	mlx_hook(vars->win, 2, 1L << 0, manage_event, vars);
+	
+	manage_enemy(vars);
+	mlx_hook(vars->win, 2, 1L << 0, manage_events, vars);
+	mlx_hook(vars->win, 17, 1L << 17, mouse_hook, vars);
 	mlx_loop(vars->mlx);
 }

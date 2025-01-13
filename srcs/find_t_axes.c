@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_handling.c                                   :+:      :+:    :+:   */
+/*   find_t_axes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:21:50 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/10 11:35:01 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/13 11:11:36 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,25 @@ static int	axes_by_key_pressed(t_vars *vars, char *path, int y, int x)
 	if (ft_strncmp("UP", path, ft_strlen("UP")) == 0)
 	{
 		if (vars->matrice_of_m[y - 1][x] == 'e')
-			finish_the_game(vars);
+			return (2);
 		return (yes_or_no_UP_DOWN(vars, y, x, 1));
 	}
 	else if (ft_strncmp("DOWN", path, ft_strlen("DOWN")) == 0)
 	{
 		if (vars->matrice_of_m[y + 1][x] == 'e')
-			finish_the_game(vars);
+			return (2);
 		return (yes_or_no_UP_DOWN(vars, y, x, 0));
 	}
 	else if (ft_strncmp("LEFT", path, ft_strlen("LEFT")) == 0)
 	{
 		if (vars->matrice_of_m[y][x - 1] == 'e')
-			finish_the_game(vars);
+			return (2);
 		return (yes_or_no_LEFT_RIGHT(vars, y, x, 1));		
 	}
 	else if (ft_strncmp("RIGHT", path, ft_strlen("RIGHT")) == 0)
 	{
 		if (vars->matrice_of_m[y][x + 1] == 'e')
-			finish_the_game(vars);
+			return (2);
 		return (yes_or_no_LEFT_RIGHT(vars, y, x, 0));		
 	}
 	return (0);

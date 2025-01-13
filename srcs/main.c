@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/11 19:39:34 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/13 12:51:54 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	allow_to_exit(t_vars *vars, char *path)
 	}
 }
 
-void	finish_the_game(t_vars *vars)
+void	finish_the_game(t_vars *vars, int deplacement_count)
 {
+	if (deplacement_count > 0)
+		ft_printf("You finished the game with %d steps\n", deplacement_count+1);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);
 }
@@ -93,6 +95,5 @@ int	main(int arv, char **arg)
 	free(path);
 	if (is_the_map_correct(ptr_matrice, &window_size, &vars) == 0)
 		exit(0);
-	enemy_managing(&vars);
-	window_handling(&window_size, &vars);
+	create_window(&window_size, &vars);
 }
