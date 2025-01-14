@@ -41,6 +41,7 @@ typedef struct	s_axes {
 // # include "../../libft/libft.h"
 # include "../../../finished/gnl/get_next_line.h"
 # include "../../../finished/libft/libft.h"
+# include "../ft_printf/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -48,21 +49,24 @@ typedef struct	s_axes {
 // main.c
 int finished_or_not(t_vars *vars);
 void	allow_to_exit(t_vars *vars, char *path);
-void	finish_the_game(t_vars *vars);
+void	finish_the_game(t_vars *vars, int deplacement_count);
+
+// find_good_path
+int	is_the_path_valid_or_not(t_vars *vars);
 
 // error_managing
-void	enemy_managing(t_vars *vars);
+void	manage_enemy(t_vars *vars);
 
-// event_handling.c
+// find_t_axes.c
 t_axes	*find_t_axes(t_vars *vars, char *path);
 
-// event_managing.c
-int	manage_event(int keycode, t_vars *vars);
+// manage_events.c
+int	manage_events(int keycode, t_vars *vars);
 
 // window_handling.c
-void	window_handling(t_size *window_size, t_vars *vars);
+void	create_window(t_size *window_size, t_vars *vars);
 
-// error_managing.c
+// manage_errors.c
 int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);
 
 // map_parsing.c

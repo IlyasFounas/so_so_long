@@ -51,21 +51,24 @@
 
 
 NAME    = so_long
-SRC     = srcs/main.c \
+SRC     = srcs/create_window.c \
+          srcs/event_deplacements.c \
+          srcs/find_t_axes.c \
+          srcs/find_good_path.c \
+		  srcs/main.c \
+          srcs/manage_enemy.c \
+          srcs/manage_errors.c \
           srcs/map_parsing.c \
-          srcs/window_handling.c \
-          srcs/event_handling.c \
-          srcs/event_managing.c \
-          srcs/error_managing.c \
-          srcs/enemy_managing.c \
-          ../../finished/gnl/get_next_line.c \
-          ../../finished/gnl/get_next_line_utils.c
+          ft_printf/ft_printf.c \
+          ft_printf/ft_printf_utils.c \
+          gnl/get_next_line.c \
+          gnl/get_next_line_utils.c
 OBJ_DIR = objs
 OBJ     = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 CFLAGS  = -Wall -Wextra -Werror -g3 -Imlx-linux -I/usr/include -I../libft/includes
 CC      = cc
 
-LIBFT_DIR = ../../finished/libft
+LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 MLX_DIR = minilibx-linux
@@ -74,11 +77,15 @@ MLX_LIBS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBFT) $(MLX_LIBS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: srcs/%.c ../../finished/gnl/get_next_line.h
+$(OBJ_DIR)/%.o: srcs/%.c gnl/get_next_line.h 
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: ../../finished/gnl/%.c ../../finished/gnl/get_next_line.h
+$(OBJ_DIR)/%.o: gnl/%.c gnl/get_next_line.h
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: ft_printf/%.c ft_printf/ft_printf.h
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 

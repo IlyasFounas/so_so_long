@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/13 13:12:29 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:24:05 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,14 @@ void	create_window(t_size *window_size, t_vars *vars)
 	int		img_h;
 
 	vars->mlx = mlx_init();
+	// malloc
 	img_ptr = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm", &img_w,
 			&img_h);
 	if (!img_ptr)
 		return ;
 	vars->win = mlx_new_window(vars->mlx, window_size->width * img_w,
 			window_size->height * img_h, "SO_LONG");
+	// malloc
 	create_map(window_size, vars);
 	
 	manage_enemy(vars);

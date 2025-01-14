@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/13 17:14:51 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/14 14:23:21 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,10 @@ int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
 			return (0);
 		}
 	}
-	// if (is_the_path_valid_or_not(vars) == 0)
-	// {
-	// 	ft_printf("Error\n");
-	// 	return (0);
-	// }
+	if (is_the_path_valid_or_not(vars) == 0)
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
 	return (1);
 }
