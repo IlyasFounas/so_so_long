@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/14 17:24:05 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/15 19:28:11 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 	else if (vars->matrice_of_m[axe_y][i] == 'E')
 		axe_x += create_object(vars, "assets/Exit.xpm", axe_x, axe_y);
 	else if (vars->matrice_of_m[axe_y][i] == 'A')
-		axe_x += create_object(vars, "assets/Hero.xpm", axe_x, axe_y);
+		axe_x += create_object(vars, "assets/Enemy.xpm", axe_x, axe_y);
 	return (axe_x);
 }
 

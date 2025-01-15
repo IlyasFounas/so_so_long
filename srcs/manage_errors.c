@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/14 14:23:21 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/15 18:38:59 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	create_array2D(t_tab *matrice, t_size *window_size, t_vars *vars)
 		vars->matrice_of_m[y] = malloc((window_size->width) * sizeof(int));
 		if (!vars->matrice_of_m[y])
 			return ;
-		while (x <= window_size->width)
+		while (x < window_size->width)
 		{
 			if (ptr_matrice->tab)
 				vars->matrice_of_m[y][x] = ptr_matrice->tab[x];
