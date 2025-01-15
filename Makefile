@@ -103,7 +103,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	./$(NAME) map1.ber
+	valgrind ./$(NAME) map1.ber
 
 all: $(NAME)
 

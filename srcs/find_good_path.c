@@ -6,14 +6,14 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/14 18:52:57 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/15 18:04:21 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #include "../minilibx-linux/mlx.h"
 
-int	**verif_vertic(t_vars *vars)
+int	**matrice_cpy_for_path(t_vars *vars)
 {
 	int	**tab;
 	int	x2;
@@ -36,20 +36,54 @@ int	**verif_vertic(t_vars *vars)
 	return (tab);
 }
 
-int	**pathing_matrice(int **tab, int y, int x, int h, int w)
+void	fill_the_path2(int **tab, int y, int x, int w, int h)
 {
-	int xx;
-
-	xx = x;
-	while (y <= h)
+	if (tab[y][x] != 1)
 	{
-		while (x < w && tab[y][x] != 1)
+		tab[y][x] = 'X';
+		if (tab[y - 1][x] != 1)
+			fill_the_path2(tab, y - 1, x, w, h);
+		if (tab[y][x + 1] != 1)
+			fill_the_path2(tab, y, x + 1, w, h);
+	}
+	else
+		return ;
+}
+
+
+void	fill_the_path(int **tab, int y, int x, int w, int h)
+{
+	if (tab[y][x] != 1)
+	{
+		tab[y][x] = 'X';
+		if (tab[y][x - 1] != 1)
+			fill_the_path(tab, y, x - 1, w, h);
+		if (tab[y + 1][x] != 1)
+			fill_the_path(tab, y + 1, x, w, h);
+	}
+	else
+		return ;
+}
+int	**matrice_all_paths(int **tab, int h, int w)
+{
+	int	x;
+	int	x_cpy;
+	int	y;
+
+	x = -1;
+	y = -1;
+	x_cpy = 0;
+	while (++y < h)
+	{
+		while (++x < w)
 		{
-			printf("%d\n", tab[y][x]);
-			tab[y][x] = 'X';
-			x++;
+			if (tab[y][x] == 'X')
+			{
+				fill_the_path2(tab, y, x, w, h);
+				fill_the_path(tab, y, x, w, h);
+			}
 		}
-		x = xx;
+		x = -1;
 	}
 	return (tab);
 }
@@ -62,35 +96,46 @@ int	is_the_path_valid_or_not(t_vars *vars)
 
 	y = -1;
 	x = -1;
-	tab = verif_vertic(vars);	
+	tab = matrice_cpy_for_path(vars);
 	while (++y < vars->height)
 	{
 		while (++x < vars->width)
-		{
-			ft_printf("%d ", tab[y][x]);
-		}
-		ft_printf("\n");
+			if (tab[y][x] == 'P')
+				tab[y][x] = 'X';
 		x = -1;
 	}
-	// int	breaks;
-	// breaks = 0;
-	// while (++y <= vars->height)
-	// {
-	// 	while (++x < vars->width)
-	// 	{
-	// 		if (vars->matrice_of_m[y][x] == 'P')
-	// 		{
-	// 			tab = pathing_matrice(tab, y, x, vars->height, vars->width);
-	// 			breaks = 1;
-	// 			break ;
-	// 		}
-	// 	}
-	// 	if (breaks == 1)
-	// 		break;
-	// 	x = -1;
-	// }
-	// y = -1;
-	// x = -1;
-
+	tab = matrice_all_paths(tab, vars->height, vars->width);
+	tab = matrice_all_paths(tab, vars->height, vars->width);
+	y = -1;
+	while (++y < vars->height)
+	{
+		x = -1;
+		while (++x < vars->width)
+			if (tab[y][x] == 'C' || tab[y][x] == 'E')
+				return (0);
+	}
 	return (1);
 }
+
+/* 
+
+
+	while (++y < vars->height)
+	{
+		while (++x < vars->width)
+			if (tab[y][x] == 'C' || tab[y][x] == 'E')
+				return (0);
+		x = -1;
+	}
+
+		while (++x < vars->width)
+		{
+			if (tab[y][x] == 1 || tab[y][x] == 0)
+				printf("%d ", tab[y][x]);
+			else
+				printf("%c ", tab[y][x]);
+			// if (tab[y][x] == 'C' || tab[y][x] == 'E')
+			// 	return (0);
+		}
+		printf("\n");
+ */
