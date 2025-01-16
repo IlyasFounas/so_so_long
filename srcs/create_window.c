@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 11:36:49 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:35:11 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,18 @@ void	create_window(t_size *window_size, t_vars *vars)
 	int		img_h;
 
 	vars->mlx = mlx_init();
-	// malloc
+	if (!vars->mlx)
+		return ;
 	img_ptr = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm", &img_w,
 			&img_h);
 	if (!img_ptr)
 		return ;
 	vars->win = mlx_new_window(vars->mlx, window_size->width * img_w,
 			window_size->height * img_h, "SO_LONG");
-	// malloc
+	if (!vars->win)
+		finish_the_game(vars, 0);
+	mlx_destroy_image(vars->mlx,img_ptr);
 	create_map(window_size, vars);
-	
 	manage_enemy(vars);
 	mlx_hook(vars->win, 2, 1L << 0, manage_events, vars);
 	mlx_hook(vars->win, 17, 1L << 17, mouse_hook, vars);

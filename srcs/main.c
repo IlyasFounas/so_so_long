@@ -6,12 +6,12 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 11:43:28 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:47:58 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx-linux/mlx.h"
 #include "../includes/so_long.h"
+#include "../minilibx-linux/mlx.h"
 
 int	finished_or_not(t_vars *vars)
 {
@@ -50,10 +50,10 @@ void	allow_to_exit(t_vars *vars, char *path)
 		{
 			if (vars->matrice_of_m[y][x] == 'E')
 			{
-				exit = mlx_xpm_file_to_image(vars->mlx, path,
-						&img_width, &img_height);
+				exit = mlx_xpm_file_to_image(vars->mlx, path, &img_width,
+						&img_height);
 				mlx_put_image_to_window(vars->mlx, vars->win, exit, x
-					* img_width, (y) * img_height);
+					* img_width, (y)*img_height);
 				vars->matrice_of_m[y][x] = 'e';
 			}
 		}
@@ -63,9 +63,16 @@ void	allow_to_exit(t_vars *vars, char *path)
 
 void	finish_the_game(t_vars *vars, int deplacement_count)
 {
+	int	y;
+
+	y = -1;
 	if (deplacement_count > 0)
-		ft_printf("You finished the game with %d steps\n", deplacement_count+1);
+		ft_printf("You finished the game with %d steps\n", deplacement_count
+			+ 1);
 	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	while (++y < vars->height)
+		free(vars->matrice_of_m[y]);
 	exit(0);
 }
 
@@ -77,7 +84,8 @@ int	main(int arv, char **arg)
 	t_tab	*matrice;
 	t_tab	*ptr_matrice;
 	t_vars	vars;
-	
+// 142,852 allocs, 142,577 frees 275 leaks
+// each deplacements increase the leaks by +1;
 	vars.matrice_of_m = NULL;
 	matrice = (t_tab *)malloc(sizeof(t_tab));
 	matrice->tab = NULL;

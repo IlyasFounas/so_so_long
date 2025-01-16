@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 11:34:09 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:31:45 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	is_the_path_valid_or_not(t_vars *vars)
 	y = -1;
 	x = -1;
 	tab = matrice_cpy_for_path(vars);
-	printf("tsi\n");
 	while (++y < vars->height)
 	{
 		while (++x < vars->width)
@@ -114,7 +113,9 @@ int	is_the_path_valid_or_not(t_vars *vars)
 		while (++x < vars->width)
 			if (tab[y][x] == 'C' || tab[y][x] == 'E')
 				return (0);
+		free(tab[y]);
 	}
+	free(tab);
 	return (1);
 }
 

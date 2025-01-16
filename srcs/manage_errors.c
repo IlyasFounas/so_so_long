@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 11:37:34 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:22:10 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
 
 	y = -1;
 	create_array2D(matrice, window_size, vars);
+	free_matrice(matrice);
 	vars->height = window_size->height;
 	vars->width = window_size->width;
 	while (++y < vars->height)

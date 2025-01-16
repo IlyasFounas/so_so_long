@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:25:20 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 11:38:35 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:49:30 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ static t_axes	*right_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "RIGHT");
 	if (hero_axes->yes_or_no == 1)
 	{
+		if (vars->hero)
+			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			hero_axes->axe_x * img_width, hero_axes->axe_y * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Hero.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -43,10 +46,13 @@ static t_axes	*left_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "LEFT");
 	if (hero_axes->yes_or_no == 1)
 	{
+		if (vars->hero)
+			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			hero_axes->axe_x * img_width, hero_axes->axe_y * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Hero2.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -64,10 +70,13 @@ static t_axes	*down_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "DOWN");
 	if (hero_axes->yes_or_no == 1)
 	{
+		if (vars->hero)
+			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			hero_axes->axe_x * img_width, hero_axes->axe_y * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Hero.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -85,10 +94,13 @@ static t_axes	*up_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "UP");
 	if (hero_axes->yes_or_no == 1)
 	{
+		if (vars->hero)
+			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			hero_axes->axe_x * img_width, hero_axes->axe_y * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Hero.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -125,5 +137,6 @@ int	manage_events(int keycode, t_vars *vars)
 		finish_the_game(vars, deplacement_count);
 	if (finished_or_not(vars) == 1)
 		allow_to_exit(vars, "assets/Exit2.xpm");
+	free(hero_axes);
 	return (1);
 }
