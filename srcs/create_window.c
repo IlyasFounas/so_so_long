@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 13:35:11 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 19:07:29 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 		* img_height);
 	if (ft_strncmp(path, "assets/Hero.xpm", ft_strlen("assets/Hero.xpm")) == 0)
 		vars->hero = img_void;
+	mlx_destroy_image(vars->mlx, img_void);
 	return (img_width);
 }
 

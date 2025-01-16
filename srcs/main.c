@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 13:47:58 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 19:11:34 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	allow_to_exit(t_vars *vars, char *path)
 						&img_height);
 				mlx_put_image_to_window(vars->mlx, vars->win, exit, x
 					* img_width, (y)*img_height);
+				mlx_destroy_image(vars->mlx, exit);
 				vars->matrice_of_m[y][x] = 'e';
 			}
 		}

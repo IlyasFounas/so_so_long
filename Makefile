@@ -103,7 +103,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	valgrind ./$(NAME) map1.ber
+	valgrind --leak-check=full ./$(NAME) map2.ber
 
 all: $(NAME)
 
