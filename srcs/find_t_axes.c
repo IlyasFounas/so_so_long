@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:21:50 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/13 11:11:36 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:41:44 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,16 @@ t_axes	*find_t_axes(t_vars *vars, char *path)
 	if (!pos)
 		return (NULL);
 	x = -1;
-	y = 0;
+	y = -1;
 	while (++y < vars->height)
 	{
-		while (++x < vars->width - 1)
+		while (++x < vars->width)
 		{
 			if (vars->matrice_of_m[y][x] == 'P')
 			{
 				pos->yes_or_no = axes_by_key_pressed(vars, path ,y, x);
 				pos->axe_x = x;
-				pos->axe_y = y - 1;
+				pos->axe_y = y;
 				return (pos);
 			}
 		}

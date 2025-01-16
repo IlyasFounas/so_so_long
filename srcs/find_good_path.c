@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/15 18:04:21 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:34:09 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	**matrice_cpy_for_path(t_vars *vars)
 		if (!tab[y2])
 			return (NULL);
 		while (++x2 < vars->width)
-			tab[y2][x2] = vars->matrice_of_m[y2 + 1][x2];
+			tab[y2][x2] = vars->matrice_of_m[y2][x2];
 		x2 = -1;
 	}
 	return (tab);
@@ -97,6 +97,7 @@ int	is_the_path_valid_or_not(t_vars *vars)
 	y = -1;
 	x = -1;
 	tab = matrice_cpy_for_path(vars);
+	printf("tsi\n");
 	while (++y < vars->height)
 	{
 		while (++x < vars->width)

@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:25:20 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/13 12:18:02 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:38:35 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static t_axes	*right_event(t_vars *vars)
 	int		img_height;
 
 	hero_axes = find_t_axes(vars, "RIGHT");
-	// if (vars->matrice_of_m[hero_axes->axe_y][hero_axes->axe_x] == 'A')
-		// finish_the_game(vars, 0);
 	if (hero_axes->yes_or_no == 1)
 	{
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
@@ -43,8 +41,6 @@ static t_axes	*left_event(t_vars *vars)
 	int		img_height;
 
 	hero_axes = find_t_axes(vars, "LEFT");
-	// if (vars->matrice_of_m[hero_axes->axe_y][hero_axes->axe_x] == 'A')
-		// finish_the_game(vars, 0);
 	if (hero_axes->yes_or_no == 1)
 	{
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
@@ -66,8 +62,6 @@ static t_axes	*down_event(t_vars *vars)
 	int		img_height;
 
 	hero_axes = find_t_axes(vars, "DOWN");
-	// if (vars->matrice_of_m[hero_axes->axe_y][hero_axes->axe_x] == 'A')
-		// finish_the_game(vars, 0);
 	if (hero_axes->yes_or_no == 1)
 	{
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
@@ -89,8 +83,6 @@ static t_axes	*up_event(t_vars *vars)
 	int		img_height;
 
 	hero_axes = find_t_axes(vars, "UP");
-	// if (vars->matrice_of_m[hero_axes->axe_y][hero_axes->axe_x] == 'A')
-		// finish_the_game(vars, 0);
 	if (hero_axes->yes_or_no == 1)
 	{
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",

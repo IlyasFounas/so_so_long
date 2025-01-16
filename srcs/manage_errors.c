@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/15 18:38:59 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:37:34 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@
 
 //////////////////PARTIE OBLIGATOIRE///////////////////////
 
-redimensioner la fenetre
-
-chemin valide
-
 remplacer les assets
 
 leaks
@@ -29,15 +25,12 @@ leaks
 
 static int	verif_border_wall(t_vars *vars, int y, int x)
 {
-	if (y > 1)
-	{
-		if (vars->matrice_of_m[y][0] != 1 || vars->matrice_of_m[y][vars->width
-			- 1] != 1)
-			return (0);
-	}
+	if (vars->matrice_of_m[y][0] != 1 || vars->matrice_of_m[y][vars->width
+		- 1] != 1)
+		return (0);
 	while (++x < vars->width)
 	{
-		if (y == 1 || y == vars->height)
+		if (y == 0 || y == vars->height)
 			if (vars->matrice_of_m[y][x] != 1)
 				return (0);
 	}
@@ -93,7 +86,7 @@ static void	create_array2D(t_tab *matrice, t_size *window_size, t_vars *vars)
 		while (x < window_size->width)
 		{
 			if (ptr_matrice->tab)
-				vars->matrice_of_m[y][x] = ptr_matrice->tab[x];
+				vars->matrice_of_m[y - 1][x] = ptr_matrice->tab[x];
 			x++;
 		}
 		x = 0;
@@ -110,7 +103,7 @@ int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
 	create_array2D(matrice, window_size, vars);
 	vars->height = window_size->height;
 	vars->width = window_size->width;
-	while (++y <= vars->height)
+	while (++y < vars->height)
 	{
 		if (verif_nb_characters(vars, y, -1) == 0 || vars->height >= vars->width
 			|| verif_border_wall(vars, y, -1) == 0)

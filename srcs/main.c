@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/13 12:51:54 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:43:28 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,22 @@ void	allow_to_exit(t_vars *vars, char *path)
 	int		img_width;
 	int		img_height;
 
-	x = 0;
-	y = 1;
-	while (y < vars->height)
+	x = -1;
+	y = -1;
+	while (++y < vars->height)
 	{
-		while (x < vars->width - 1)
+		while (++x < vars->width)
 		{
 			if (vars->matrice_of_m[y][x] == 'E')
 			{
 				exit = mlx_xpm_file_to_image(vars->mlx, path,
 						&img_width, &img_height);
 				mlx_put_image_to_window(vars->mlx, vars->win, exit, x
-					* img_width, (y - 1) * img_height);
+					* img_width, (y) * img_height);
 				vars->matrice_of_m[y][x] = 'e';
 			}
-			x++;
 		}
-		x = 0;
-		y++;
+		x = -1;
 	}
 }
 

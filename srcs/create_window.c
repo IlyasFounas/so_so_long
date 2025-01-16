@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/15 19:28:11 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:36:49 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 	img_void = mlx_xpm_file_to_image(vars->mlx, path, &img_width, &img_height);
 	if (!img_void)
 		return (img_width);
-	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x, (axe_y - 1)
+	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x, (axe_y)
 		* img_height);
 	if (ft_strncmp(path, "assets/Hero.xpm", ft_strlen("assets/Hero.xpm")) == 0)
 		vars->hero = img_void;
@@ -53,18 +53,14 @@ static void	create_map(t_size *window_size, t_vars *vars)
 	int	i;
 
 	axe_x = 0;
-	i = 0;
-	axe_y = 0;
-	while (axe_y <= window_size->height)
+	i = -1;
+	axe_y = -1;
+	while (++axe_y < window_size->height)
 	{
-		while (i < window_size->width)
-		{
+		while (++i < window_size->width)
 			axe_x = verif_object(axe_x, axe_y, vars, i);
-			i++;
-		}
-		i = 0;
+		i = -1;
 		axe_x = 0;
-		axe_y++;
 	}
 	vars->width = window_size->width;
 	vars->height = window_size->height;
