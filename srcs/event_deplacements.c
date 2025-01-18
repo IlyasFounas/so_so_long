@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:25:20 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 19:19:49 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/18 16:42:42 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static t_axes	*right_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "RIGHT");
 	if (hero_axes->yes_or_no == 1)
 	{
-		if (vars->hero)
-			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -33,6 +31,7 @@ static t_axes	*right_event(t_vars *vars)
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			(hero_axes->axe_x + 1) * img_width, hero_axes->axe_y * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 	}
 	return (hero_axes);
 }
@@ -46,8 +45,6 @@ static t_axes	*left_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "LEFT");
 	if (hero_axes->yes_or_no == 1)
 	{
-		if (vars->hero)
-			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -57,6 +54,7 @@ static t_axes	*left_event(t_vars *vars)
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			(hero_axes->axe_x - 1) * img_width, hero_axes->axe_y * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 	}
 	return (hero_axes);
 }
@@ -70,8 +68,6 @@ static t_axes	*down_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "DOWN");
 	if (hero_axes->yes_or_no == 1)
 	{
-		if (vars->hero)
-			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -81,6 +77,7 @@ static t_axes	*down_event(t_vars *vars)
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			hero_axes->axe_x * img_width, (hero_axes->axe_y + 1) * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 	}
 	return (hero_axes);
 }
@@ -94,8 +91,6 @@ static t_axes	*up_event(t_vars *vars)
 	hero_axes = find_t_axes(vars, "UP");
 	if (hero_axes->yes_or_no == 1)
 	{
-		if (vars->hero)
-			mlx_destroy_image(vars->mlx, vars->hero);
 		vars->hero = mlx_xpm_file_to_image(vars->mlx, "assets/Grass1.xpm",
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
@@ -105,6 +100,7 @@ static t_axes	*up_event(t_vars *vars)
 				&img_width, &img_height);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->hero,
 			hero_axes->axe_x * img_width, (hero_axes->axe_y - 1) * img_height);
+		mlx_destroy_image(vars->mlx, vars->hero);
 	}
 	return (hero_axes);
 }
@@ -112,31 +108,30 @@ static t_axes	*up_event(t_vars *vars)
 int	manage_events(int keycode, t_vars *vars)
 {
 	static int	deplacement_count;
-	t_axes		*hero_axes;
+	t_axes		*hero_axes = NULL;
 
 	if (!deplacement_count)
 		deplacement_count = 0;
-	if (keycode == -1457486048)
-		finish_the_game(vars, 0);
 	if (keycode == 65307)
-		finish_the_game(vars, 0);
-	if (keycode == 100)
+		finish_the_game(vars, 0, hero_axes);
+	else if (keycode == 100)
 		hero_axes = right_event(vars);
-	if (keycode == 115)
+	else if (keycode == 115)
 		hero_axes = down_event(vars);
-	if (keycode == 119)
+	else if (keycode == 119)
 		hero_axes = up_event(vars);
-	if (keycode == 97)
+	else if (keycode == 97)
 		hero_axes = left_event(vars);
+	else
+		return (1);
 	if (hero_axes->yes_or_no == 1)
 	{
 		deplacement_count++;
 		ft_printf("%d\n", deplacement_count);
 	}
 	if (hero_axes->yes_or_no == 2)
-		finish_the_game(vars, deplacement_count);
+		finish_the_game(vars, deplacement_count, hero_axes);
 	if (finished_or_not(vars) == 1)
 		allow_to_exit(vars, "assets/Exit2.xpm");
-	free(hero_axes);
-	return (1);
+	return (free(hero_axes), 1);
 }

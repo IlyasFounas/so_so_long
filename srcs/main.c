@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 19:43:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 19:11:34 by ifounas          ###   ########.fr       */
+/*   Created: 2024/12/22 19:43:09 by ifounas           #+#    #+#             */
+/*   Updated: 2025/01/18 18:59:06 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	allow_to_exit(t_vars *vars, char *path)
 	}
 }
 
-void	finish_the_game(t_vars *vars, int deplacement_count)
+void	finish_the_game(t_vars *vars, int deplacement_count, t_axes *hero_axes)
 {
 	int	y;
 
@@ -74,7 +74,24 @@ void	finish_the_game(t_vars *vars, int deplacement_count)
 	mlx_destroy_display(vars->mlx);
 	while (++y < vars->height)
 		free(vars->matrice_of_m[y]);
+	free(vars->matrice_of_m);
+	if (hero_axes)
+		free(hero_axes);
+	free(vars->mlx);
 	exit(0);
+}
+
+int	check_the_map_extension(char *s)
+{
+	if (ft_strncmp(s, "./so_long", ft_strlen(s)) == 0)
+		return (write(2, "\n\n>> A map is required to run so_long <<\n\n",
+				ft_strlen("\n\n>> A map is required to run so_long <<\n\n")),
+			0);
+	if (ft_strncmp(ft_strchr(s, '.'), ".ber", 4) != 0 || ft_strchr(ft_strchr(s, '.') + 1, '.') != NULL)
+		return (write(2, "\n\n>> This map isn't a .ber extenson <<\n\n",
+				ft_strlen("\n\n>> This map isn't a .ber extenson <<\n\n")), 0);
+	ft_printf("%s", ft_strchr(ft_strchr(s, '.') + 1, '.'));
+	return (1);
 }
 
 int	main(int arv, char **arg)
@@ -85,8 +102,9 @@ int	main(int arv, char **arg)
 	t_tab	*matrice;
 	t_tab	*ptr_matrice;
 	t_vars	vars;
-// 142,852 allocs, 142,577 frees 275 leaks
-// each deplacements increase the leaks by +1;
+
+	if (check_the_map_extension(arg[arv - 1]) == 0)
+		return (0);
 	vars.matrice_of_m = NULL;
 	matrice = (t_tab *)malloc(sizeof(t_tab));
 	matrice->tab = NULL;
@@ -99,7 +117,7 @@ int	main(int arv, char **arg)
 		return (free(path), 0);
 	fd = open(path, O_RDONLY);
 	parsing_handling(fd, path, &window_size, matrice);
-	free(path);
+	close(fd);
 	if (is_the_map_correct(ptr_matrice, &window_size, &vars) == 0)
 		exit(0);
 	create_window(&window_size, &vars);

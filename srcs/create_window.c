@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 19:07:29 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/18 16:56:27 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 
 	img_void = mlx_xpm_file_to_image(vars->mlx, path, &img_width, &img_height);
 	if (!img_void)
-		return (img_width);
+	{
+		write(2, "\n\n>>", 4);
+		write(2, path, ft_strlen(path));
+		write(2, " doesn't work<<\n\n",17);
+		finish_the_game(vars, 0, NULL);
+	}
 	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x, (axe_y)
 		* img_height);
 	if (ft_strncmp(path, "assets/Hero.xpm", ft_strlen("assets/Hero.xpm")) == 0)
@@ -42,8 +47,6 @@ static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 		axe_x += create_object(vars, "assets/Hero.xpm", axe_x, axe_y);
 	else if (vars->matrice_of_m[axe_y][i] == 'E')
 		axe_x += create_object(vars, "assets/Exit.xpm", axe_x, axe_y);
-	else if (vars->matrice_of_m[axe_y][i] == 'A')
-		axe_x += create_object(vars, "assets/Enemy.xpm", axe_x, axe_y);
 	return (axe_x);
 }
 
@@ -89,10 +92,9 @@ void	create_window(t_size *window_size, t_vars *vars)
 	vars->win = mlx_new_window(vars->mlx, window_size->width * img_w,
 			window_size->height * img_h, "SO_LONG");
 	if (!vars->win)
-		finish_the_game(vars, 0);
+		finish_the_game(vars, 0, NULL);
 	mlx_destroy_image(vars->mlx,img_ptr);
 	create_map(window_size, vars);
-	manage_enemy(vars);
 	mlx_hook(vars->win, 2, 1L << 0, manage_events, vars);
 	mlx_hook(vars->win, 17, 1L << 17, mouse_hook, vars);
 	mlx_loop(vars->mlx);

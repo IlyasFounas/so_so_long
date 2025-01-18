@@ -6,14 +6,14 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:21:50 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 11:41:44 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/18 18:30:40 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx-linux/mlx.h"
 #include "../includes/so_long.h"
+#include "../minilibx-linux/mlx.h"
 
-static int	yes_or_no_UP_DOWN(t_vars *vars, int y, int x, int up_down)
+static int	yes_or_no_up_down(t_vars *vars, int y, int x, int up_down)
 {
 	if (up_down == 1)
 	{
@@ -40,7 +40,7 @@ static int	yes_or_no_UP_DOWN(t_vars *vars, int y, int x, int up_down)
 	return (0);
 }
 
-static int	yes_or_no_LEFT_RIGHT(t_vars *vars, int y, int x, int left_right)
+static int	yes_or_no_left_right(t_vars *vars, int y, int x, int left_right)
 {
 	if (left_right == 1)
 	{
@@ -73,25 +73,25 @@ static int	axes_by_key_pressed(t_vars *vars, char *path, int y, int x)
 	{
 		if (vars->matrice_of_m[y - 1][x] == 'e')
 			return (2);
-		return (yes_or_no_UP_DOWN(vars, y, x, 1));
+		return (yes_or_no_up_down(vars, y, x, 1));
 	}
 	else if (ft_strncmp("DOWN", path, ft_strlen("DOWN")) == 0)
 	{
 		if (vars->matrice_of_m[y + 1][x] == 'e')
 			return (2);
-		return (yes_or_no_UP_DOWN(vars, y, x, 0));
+		return (yes_or_no_up_down(vars, y, x, 0));
 	}
 	else if (ft_strncmp("LEFT", path, ft_strlen("LEFT")) == 0)
 	{
 		if (vars->matrice_of_m[y][x - 1] == 'e')
 			return (2);
-		return (yes_or_no_LEFT_RIGHT(vars, y, x, 1));		
+		return (yes_or_no_left_right(vars, y, x, 1));
 	}
 	else if (ft_strncmp("RIGHT", path, ft_strlen("RIGHT")) == 0)
 	{
 		if (vars->matrice_of_m[y][x + 1] == 'e')
 			return (2);
-		return (yes_or_no_LEFT_RIGHT(vars, y, x, 0));		
+		return (yes_or_no_left_right(vars, y, x, 0));
 	}
 	return (0);
 }
@@ -113,7 +113,7 @@ t_axes	*find_t_axes(t_vars *vars, char *path)
 		{
 			if (vars->matrice_of_m[y][x] == 'P')
 			{
-				pos->yes_or_no = axes_by_key_pressed(vars, path ,y, x);
+				pos->yes_or_no = axes_by_key_pressed(vars, path, y, x);
 				pos->axe_x = x;
 				pos->axe_y = y;
 				return (pos);

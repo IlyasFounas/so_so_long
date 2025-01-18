@@ -37,25 +37,19 @@ typedef struct	s_axes {
 	int	yes_or_no;
 }				t_axes;
 
-// # include "../../gnl/get_next_line.h"
-// # include "../../libft/libft.h"
-# include "../../../finished/gnl/get_next_line.h"
-# include "../../../finished/libft/libft.h"
+# include "../gnl/get_next_line.h"
+# include "../libft/libft.h"
 # include "../ft_printf/ft_printf.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 // main.c
 int finished_or_not(t_vars *vars);
 void	allow_to_exit(t_vars *vars, char *path);
-void	finish_the_game(t_vars *vars, int deplacement_count);
+void	finish_the_game(t_vars *vars, int deplacement_count, t_axes *hero_axes);
 
 // find_good_path
 int	is_the_path_valid_or_not(t_vars *vars);
-
-// error_managing
-void	manage_enemy(t_vars *vars);
 
 // find_t_axes.c
 t_axes	*find_t_axes(t_vars *vars, char *path);

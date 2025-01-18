@@ -6,14 +6,14 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/16 13:31:45 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/18 19:01:28 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #include "../minilibx-linux/mlx.h"
 
-int	**matrice_cpy_for_path(t_vars *vars)
+static int	**matrice_cpy_for_path(t_vars *vars)
 {
 	int	**tab;
 	int	x2;
@@ -36,35 +36,34 @@ int	**matrice_cpy_for_path(t_vars *vars)
 	return (tab);
 }
 
-void	fill_the_path2(int **tab, int y, int x, int w, int h)
+static void	path_up_and_right(int **tab, int y, int x, int w, int h)
 {
 	if (tab[y][x] != 1)
 	{
 		tab[y][x] = 'X';
 		if (tab[y - 1][x] != 1)
-			fill_the_path2(tab, y - 1, x, w, h);
+			path_up_and_right(tab, y - 1, x, w, h);
 		if (tab[y][x + 1] != 1)
-			fill_the_path2(tab, y, x + 1, w, h);
+			path_up_and_right(tab, y, x + 1, w, h);
 	}
 	else
 		return ;
 }
 
-
-void	fill_the_path(int **tab, int y, int x, int w, int h)
+static void	path_down_and_left(int **tab, int y, int x, int w, int h)
 {
 	if (tab[y][x] != 1)
 	{
 		tab[y][x] = 'X';
 		if (tab[y][x - 1] != 1)
-			fill_the_path(tab, y, x - 1, w, h);
+			path_down_and_left(tab, y, x - 1, w, h);
 		if (tab[y + 1][x] != 1)
-			fill_the_path(tab, y + 1, x, w, h);
+			path_down_and_left(tab, y + 1, x, w, h);
 	}
 	else
 		return ;
 }
-int	**matrice_all_paths(int **tab, int h, int w)
+static int	**matrice_all_paths(int **tab, int h, int w)
 {
 	int	x;
 	int	x_cpy;
@@ -79,8 +78,8 @@ int	**matrice_all_paths(int **tab, int h, int w)
 		{
 			if (tab[y][x] == 'X')
 			{
-				fill_the_path2(tab, y, x, w, h);
-				fill_the_path(tab, y, x, w, h);
+				path_up_and_right(tab, y, x, w, h);
+				path_down_and_left(tab, y, x, w, h);
 			}
 		}
 		x = -1;
@@ -95,14 +94,13 @@ int	is_the_path_valid_or_not(t_vars *vars)
 	int	**tab;
 
 	y = -1;
-	x = -1;
 	tab = matrice_cpy_for_path(vars);
 	while (++y < vars->height)
 	{
+		x = -1;
 		while (++x < vars->width)
 			if (tab[y][x] == 'P')
 				tab[y][x] = 'X';
-		x = -1;
 	}
 	tab = matrice_all_paths(tab, vars->height, vars->width);
 	tab = matrice_all_paths(tab, vars->height, vars->width);
@@ -115,29 +113,5 @@ int	is_the_path_valid_or_not(t_vars *vars)
 				return (0);
 		free(tab[y]);
 	}
-	free(tab);
-	return (1);
+	return (free(tab), 1);
 }
-
-/* 
-
-
-	while (++y < vars->height)
-	{
-		while (++x < vars->width)
-			if (tab[y][x] == 'C' || tab[y][x] == 'E')
-				return (0);
-		x = -1;
-	}
-
-		while (++x < vars->width)
-		{
-			if (tab[y][x] == 1 || tab[y][x] == 0)
-				printf("%d ", tab[y][x]);
-			else
-				printf("%c ", tab[y][x]);
-			// if (tab[y][x] == 'C' || tab[y][x] == 'E')
-			// 	return (0);
-		}
-		printf("\n");
- */

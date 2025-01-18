@@ -5,15 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 19:51:32 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 13:43:28 by ifounas          ###   ########.fr       */
+/*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
+/*   Updated: 2025/01/18 16:45:56 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// # include "../../libft/libft.h"
-#include "../../../finished/libft/libft.h"
 #include "../includes/so_long.h"
-
 
 void	free_matrice(t_tab *matrice)
 {
@@ -39,6 +36,8 @@ static t_tab *ft_lstlast_sl(t_tab *lst)
     {
         ptr = lst;
         lst = lst->next;
+		if (!lst)
+			return (ptr);
     }
     return (ptr);
 }
@@ -62,6 +61,7 @@ static t_tab	*fill_the_matrice(char *line)
 	if (!new_matrice)
 		return (free(line), NULL);
 	new_matrice->tab = malloc(ft_strlen(line) * sizeof(int));
+	new_matrice->next = NULL;
 	if (!new_matrice->tab)
 		return (free(line), NULL);
 	while (line[i] && line[i] != '\n')
@@ -98,4 +98,5 @@ void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
 		window_size->height++;
 	}
 	free(line);
+	free(path);
 }
