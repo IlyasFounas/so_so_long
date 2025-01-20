@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 17:29:27 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:28:46 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,28 @@ static int	**matrice_cpy_for_path(t_vars *vars)
 	return (tab);
 }
 
-static int	fill_path(int **tab, int y, int x, int w, int h)
+static int	fill_path(int **tab, int y, int x, t_vars *vars)
 {
-	static int exit;
+	static int	exit;
 
 	if (!exit)
 		exit = 0;
-	if ((y < 0 || y >= h) || (x < 0 || x >= w))
+	if ((y < 0 || y >= vars->height) || (x < 0 || x >= vars->width))
 		return (exit);
-	if ( tab[y][x] == 'E' )
+	if (tab[y][x] == 'E')
 		exit = 1;
 	if (tab[y][x] == 'C' || tab[y][x] == 'P' || tab[y][x] == 0)
 		tab[y][x] = 'X';
 	else
 		return (exit);
-	fill_path(tab, y, x + 1, w, h);
-	fill_path(tab, y, x - 1, w, h);
-	fill_path(tab, y + 1, x, w, h);
-	fill_path(tab, y - 1, x, w, h);
+	fill_path(tab, y, x + 1, vars);
+	fill_path(tab, y, x - 1, vars);
+	fill_path(tab, y + 1, x, vars);
+	fill_path(tab, y - 1, x, vars);
 	return (exit);
 }
 
-static int	**matrice_all_paths(int **tab, int h, int w, int *exit)
+static int	**matrice_all_paths(int **tab, t_vars *vars, int *exit)
 {
 	int	x;
 	int	x_cpy;
@@ -66,13 +66,13 @@ static int	**matrice_all_paths(int **tab, int h, int w, int *exit)
 	x = -1;
 	y = -1;
 	x_cpy = 0;
-	while (++y < h)
+	while (++y < vars->height)
 	{
-		while (++x < w)
+		while (++x < vars->width)
 		{
 			if (tab[y][x] == 'P')
 			{
-				*exit = fill_path(tab, y, x, w, h);
+				*exit = fill_path(tab, y, x, vars);
 				return (tab);
 			}
 		}
@@ -91,9 +91,8 @@ int	ft_flood_fill(t_vars *vars)
 	y = -1;
 	exit = 0;
 	tab = matrice_cpy_for_path(vars);
-	tab = matrice_all_paths(tab, vars->height, vars->width, &exit);
+	tab = matrice_all_paths(tab, vars, &exit);
 	y = -1;
-	printf("%d \n", exit);
 	while (++y < vars->height)
 	{
 		x = -1;

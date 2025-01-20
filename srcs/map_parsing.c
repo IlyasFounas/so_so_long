@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:00:42 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:10:42 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,21 @@ void	free_matrice(t_tab *matrice)
 	}
 }
 
-static t_tab *ft_lstlast_sl(t_tab *lst)
+static t_tab	*ft_lstlast_sl(t_tab *lst)
 {
-    t_tab *ptr;
+	t_tab	*ptr;
 
-    if (!lst)
-        return (NULL);
-    while (lst)
-    {
-        ptr = lst;
-        lst = lst->next;
+	if (!lst)
+		return (NULL);
+	while (lst)
+	{
+		ptr = lst;
+		lst = lst->next;
 		if (!lst)
 			return (ptr);
-    }
-    return (ptr);
+	}
+	return (ptr);
 }
-
-
 
 static void	ft_lstadd_back_sl(t_tab **lst, t_tab *new)
 {
@@ -54,9 +52,10 @@ static void	ft_lstadd_back_sl(t_tab **lst, t_tab *new)
 
 static t_tab	*fill_the_matrice(char *line)
 {
-	int i = 0;
-	t_tab *new_matrice;
-	
+	int		i;
+	t_tab	*new_matrice;
+
+	i = 0;
 	new_matrice = (t_tab *)malloc(sizeof(t_tab));
 	if (!new_matrice)
 		return (free(line), NULL);
@@ -74,7 +73,6 @@ static t_tab	*fill_the_matrice(char *line)
 	return (new_matrice);
 }
 
-// void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice, t_vars *vars)
 void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 {
 	char	*line;
@@ -84,11 +82,10 @@ void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 	if (!line)
 	{
 		free(path);
-		free(line);		
+		free(line);
 	}
 	while (line)
 	{
-		// window_size->width = ft_strlen(line);
 		vars->width = ft_strlen(line);
 		new_matrice = fill_the_matrice(line);
 		if (!new_matrice)
@@ -97,7 +94,6 @@ void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 		line = get_next_line(fd);
 		if (new_matrice != NULL)
 			ft_lstadd_back_sl(&matrice, new_matrice);
-		// window_size->height++;
 		vars->height++;
 	}
 	free(line);

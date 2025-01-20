@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:25:20 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 10:25:58 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:14:59 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,9 @@ static t_axes	*up_event(t_vars *vars)
 int	manage_events(int keycode, t_vars *vars)
 {
 	static int	deplacement_count;
-	t_axes		*hero_axes = NULL;
+	t_axes		*hero_axes;
 
+	hero_axes = NULL;
 	if (!deplacement_count)
 		deplacement_count = 1;
 	if (keycode == 65307)

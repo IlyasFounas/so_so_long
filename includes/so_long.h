@@ -10,12 +10,6 @@ typedef struct s_data
 	int				endian;
 }					t_data;
 
-typedef struct s_size
-{
-	int				width;
-	int				height;
-}					t_size;
-
 typedef struct s_tab
 {
 	int				*tab;
@@ -59,7 +53,8 @@ int	create_object(t_vars *vars, char *path, int axe_x, int axe_y);
 int	manage_events(int keycode, t_vars *vars);
 
 // window_handling.c
-void	create_window(t_size *window_size, t_vars *vars);
+// void	create_window(t_size *window_size, t_vars *vars);
+void	create_window(t_vars *vars);
 
 // manage_errors.c
 // int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);

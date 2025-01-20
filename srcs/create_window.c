@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:05:22 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:12:07 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 	{
 		write(2, "\n\n>>", 4);
 		write(2, path, ft_strlen(path));
-		write(2, " doesn't work<<\n\n",17);
+		write(2, " doesn't work<<\n\n", 17);
 		finish_the_game(vars, 0, NULL);
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x, (axe_y)
-		* img_height);
+	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x,
+		(axe_y) * img_height);
 	if (ft_strncmp(path, "assets/Hero.xpm", ft_strlen("assets/Hero.xpm")) == 0)
 		vars->hero = img_void;
 	mlx_destroy_image(vars->mlx, img_void);
@@ -37,7 +37,7 @@ int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 
 static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 {
-	static int random;
+	static int	random;
 
 	if (!random)
 		random = 0;
@@ -50,7 +50,7 @@ static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 		if (++random % 2 == 0)
 			axe_x += create_object(vars, "assets/Item2.xpm", axe_x, axe_y);
 		else
-			axe_x += create_object(vars, "assets/Item.xpm", axe_x, axe_y);	
+			axe_x += create_object(vars, "assets/Item.xpm", axe_x, axe_y);
 	}
 	else if (vars->matrice_of_m[axe_y][i] == 'P')
 		axe_x += create_object(vars, "assets/Hero.xpm", axe_x, axe_y);
@@ -59,7 +59,6 @@ static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 	return (axe_x);
 }
 
-// static void	create_map(t_size *window_size, t_vars *vars)
 static void	create_map(t_vars *vars)
 {
 	int	axe_y;
@@ -76,17 +75,14 @@ static void	create_map(t_vars *vars)
 		i = -1;
 		axe_x = 0;
 	}
-	// vars->width = window_size->width;
-	// vars->height = window_size->height;
 }
 
-int mouse_hook(int keycode)
+int	mouse_hook(int keycode)
 {
-	exit (0);
+	exit(0);
 	return (keycode);
 }
 
-// void	create_window(t_size *window_size, t_vars *vars)
 void	create_window(t_vars *vars)
 {
 	void	*img_ptr;
@@ -100,12 +96,11 @@ void	create_window(t_vars *vars)
 			&img_h);
 	if (!img_ptr)
 		return ;
-	vars->win = mlx_new_window(vars->mlx, vars->width * img_w,
-			vars->height * img_h, "SO_LONG_DOFUS");
+	vars->win = mlx_new_window(vars->mlx, vars->width * img_w, vars->height
+			* img_h, "SO_LONG_DOFUS");
 	if (!vars->win)
 		finish_the_game(vars, 0, NULL);
-	mlx_destroy_image(vars->mlx,img_ptr);
-	// create_map(window_size, vars);
+	mlx_destroy_image(vars->mlx, img_ptr);
 	create_map(vars);
 	mlx_hook(vars->win, 2, 1L << 0, manage_events, vars);
 	mlx_hook(vars->win, 17, 1L << 17, mouse_hook, vars);

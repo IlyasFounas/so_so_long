@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:21:50 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 17:30:58 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:14:45 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	yes_or_no_up_down(t_vars *vars, int y, int x, int up_down)
 	{
 		if (y > 0)
 		{
-			if (vars->matrice_of_m[y - 1][x] == 1 || vars->matrice_of_m[y - 1][x] == 'E')
+			if (vars->matrice_of_m[y - 1][x] == 1 || vars->matrice_of_m[y
+				- 1][x] == 'E')
 				return (0);
 			vars->matrice_of_m[y][x] = 0;
 			vars->matrice_of_m[y - 1][x] = 'P';
@@ -29,7 +30,8 @@ static int	yes_or_no_up_down(t_vars *vars, int y, int x, int up_down)
 	}
 	if (y < vars->height)
 	{
-		if (vars->matrice_of_m[y + 1][x] == 1 || vars->matrice_of_m[y + 1][x] == 'E')
+		if (vars->matrice_of_m[y + 1][x] == 1 || vars->matrice_of_m[y
+			+ 1][x] == 'E')
 			return (0);
 		vars->matrice_of_m[y][x] = 0;
 		vars->matrice_of_m[y + 1][x] = 'P';
@@ -44,7 +46,8 @@ static int	yes_or_no_left_right(t_vars *vars, int y, int x, int left_right)
 	{
 		if (x > 0)
 		{
-			if (vars->matrice_of_m[y][x - 1] == 1 || vars->matrice_of_m[y][x - 1] == 'E')
+			if (vars->matrice_of_m[y][x - 1] == 1 || vars->matrice_of_m[y][x
+				- 1] == 'E')
 				return (0);
 			vars->matrice_of_m[y][x] = 0;
 			vars->matrice_of_m[y][x - 1] = 'P';
@@ -54,7 +57,8 @@ static int	yes_or_no_left_right(t_vars *vars, int y, int x, int left_right)
 	}
 	if (x < vars->width)
 	{
-		if (vars->matrice_of_m[y][x + 1] == 1 || vars->matrice_of_m[y][x + 1] == 'E')
+		if (vars->matrice_of_m[y][x + 1] == 1 || vars->matrice_of_m[y][x
+			+ 1] == 'E')
 			return (0);
 		vars->matrice_of_m[y][x] = 0;
 		vars->matrice_of_m[y][x + 1] = 'P';
