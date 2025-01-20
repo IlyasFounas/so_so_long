@@ -6,14 +6,14 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 12:19:49 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:05:22 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #include "../minilibx-linux/mlx.h"
 
-static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
+int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 {
 	int		img_width;
 	int		img_height;
@@ -37,13 +37,17 @@ static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 
 static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 {
+	static int random;
+
+	if (!random)
+		random = 0;
 	if (vars->matrice_of_m[axe_y][i] == 1)
 		axe_x += create_object(vars, "assets/Trees.xpm", axe_x, axe_y);
 	else if (vars->matrice_of_m[axe_y][i] == 0)
 		axe_x += create_object(vars, "assets/Grass1.xpm", axe_x, axe_y);
 	else if (vars->matrice_of_m[axe_y][i] == 'C')
 	{
-		if (i % 2 == 0)
+		if (++random % 2 == 0)
 			axe_x += create_object(vars, "assets/Item2.xpm", axe_x, axe_y);
 		else
 			axe_x += create_object(vars, "assets/Item.xpm", axe_x, axe_y);	
@@ -55,7 +59,8 @@ static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 	return (axe_x);
 }
 
-static void	create_map(t_size *window_size, t_vars *vars)
+// static void	create_map(t_size *window_size, t_vars *vars)
+static void	create_map(t_vars *vars)
 {
 	int	axe_y;
 	int	axe_x;
@@ -64,15 +69,15 @@ static void	create_map(t_size *window_size, t_vars *vars)
 	axe_x = 0;
 	i = -1;
 	axe_y = -1;
-	while (++axe_y < window_size->height)
+	while (++axe_y < vars->height)
 	{
-		while (++i < window_size->width)
+		while (++i < vars->width)
 			axe_x = verif_object(axe_x, axe_y, vars, i);
 		i = -1;
 		axe_x = 0;
 	}
-	vars->width = window_size->width;
-	vars->height = window_size->height;
+	// vars->width = window_size->width;
+	// vars->height = window_size->height;
 }
 
 int mouse_hook(int keycode)
@@ -81,7 +86,8 @@ int mouse_hook(int keycode)
 	return (keycode);
 }
 
-void	create_window(t_size *window_size, t_vars *vars)
+// void	create_window(t_size *window_size, t_vars *vars)
+void	create_window(t_vars *vars)
 {
 	void	*img_ptr;
 	int		img_w;
@@ -94,12 +100,13 @@ void	create_window(t_size *window_size, t_vars *vars)
 			&img_h);
 	if (!img_ptr)
 		return ;
-	vars->win = mlx_new_window(vars->mlx, window_size->width * img_w,
-			window_size->height * img_h, "SO_LONG_DOFUS");
+	vars->win = mlx_new_window(vars->mlx, vars->width * img_w,
+			vars->height * img_h, "SO_LONG_DOFUS");
 	if (!vars->win)
 		finish_the_game(vars, 0, NULL);
 	mlx_destroy_image(vars->mlx,img_ptr);
-	create_map(window_size, vars);
+	// create_map(window_size, vars);
+	create_map(vars);
 	mlx_hook(vars->win, 2, 1L << 0, manage_events, vars);
 	mlx_hook(vars->win, 17, 1L << 17, mouse_hook, vars);
 	mlx_loop(vars->mlx);

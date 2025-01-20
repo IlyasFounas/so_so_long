@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 13:32:00 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 17:29:27 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,56 +36,28 @@ static int	**matrice_cpy_for_path(t_vars *vars)
 	return (tab);
 }
 
-static void	path_up_and_right(int **tab, int y, int x, int w, int h)
+static int	fill_path(int **tab, int y, int x, int w, int h)
 {
-	if (tab[y][x] != 1 && tab[y][x] != 2)
-	{
-		if (tab[y][x] == 'E')
-		{
-			// if (tab[y - 1][x] == 'C' && tab[y - 2][x] == 1 && tab[y - 1][x
-			// 	+ 1] == 1 && tab[y - 1][x - 1] == 1)
-			// 	tab[y - 1][x] = 2;
-			// if (tab[y][x + 1] == 'C' && tab[y][x + 2] == 1 && tab[y - 1][x
-			// 	+ 1] == 1 && tab[y + 1][x - 1] == 1)
-			// 	tab[y][x + 1] = 2;
-			tab[y][x] = 'X';
-			return ;
-		}
+	static int exit;
+
+	if (!exit)
+		exit = 0;
+	if ((y < 0 || y >= h) || (x < 0 || x >= w))
+		return (exit);
+	if ( tab[y][x] == 'E' )
+		exit = 1;
+	if (tab[y][x] == 'C' || tab[y][x] == 'P' || tab[y][x] == 0)
 		tab[y][x] = 'X';
-		if (tab[y - 1][x] != 1)
-			path_up_and_right(tab, y - 1, x, w, h);
-		if (tab[y][x + 1] != 1)
-			path_up_and_right(tab, y, x + 1, w, h);
-	}
 	else
-		return ;
+		return (exit);
+	fill_path(tab, y, x + 1, w, h);
+	fill_path(tab, y, x - 1, w, h);
+	fill_path(tab, y + 1, x, w, h);
+	fill_path(tab, y - 1, x, w, h);
+	return (exit);
 }
 
-static void	path_down_and_left(int **tab, int y, int x, int w, int h)
-{
-	if (tab[y][x] != 1 && tab[y][x] != 2)
-	{
-		if (tab[y][x] == 'E')
-		{
-			// if (tab[y + 1][x] == 'C' && tab[y + 2][x] == 1 && tab[y + 1][x
-			// 	+ 1] == 1 && tab[y + 1][x - 1] == 1)
-			// 	tab[y + 1][x] = 2;
-			// if (tab[y][x - 1] == 'C' && tab[y][x - 2] == 1 && tab[y - 1][x
-			// 	- 1] == 1 && tab[y + 1][x - 1] == 1)
-			// 	tab[y][x + 1] = 2;
-			tab[y][x] = 'X';
-			return ;
-		}
-		tab[y][x] = 'X';
-		if (tab[y][x - 1] != 1)
-			path_down_and_left(tab, y, x - 1, w, h);
-		if (tab[y + 1][x] != 1)
-			path_down_and_left(tab, y + 1, x, w, h);
-	}
-	else
-		return ;
-}
-static int	**matrice_all_paths(int **tab, int h, int w)
+static int	**matrice_all_paths(int **tab, int h, int w, int *exit)
 {
 	int	x;
 	int	x_cpy;
@@ -98,10 +70,10 @@ static int	**matrice_all_paths(int **tab, int h, int w)
 	{
 		while (++x < w)
 		{
-			if (tab[y][x] == 'X')
+			if (tab[y][x] == 'P')
 			{
-				path_up_and_right(tab, y, x, w, h);
-				path_down_and_left(tab, y, x, w, h);
+				*exit = fill_path(tab, y, x, w, h);
+				return (tab);
 			}
 		}
 		x = -1;
@@ -114,24 +86,19 @@ int	ft_flood_fill(t_vars *vars)
 	int	y;
 	int	x;
 	int	**tab;
+	int	exit;
 
 	y = -1;
+	exit = 0;
 	tab = matrice_cpy_for_path(vars);
-	while (++y < vars->height)
-	{
-		x = -1;
-		while (++x < vars->width)
-			if (tab[y][x] == 'P')
-				tab[y][x] = 'X';
-	}
-	tab = matrice_all_paths(tab, vars->height, vars->width);
-	tab = matrice_all_paths(tab, vars->height, vars->width);
+	tab = matrice_all_paths(tab, vars->height, vars->width, &exit);
 	y = -1;
+	printf("%d \n", exit);
 	while (++y < vars->height)
 	{
 		x = -1;
 		while (++x < vars->width)
-			if (tab[y][x] == 'C' || tab[y][x] == 'E' || tab[y][x] == 2)
+			if (tab[y][x] == 'C' || exit == 0)
 				return (0);
 		free(tab[y]);
 	}

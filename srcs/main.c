@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 10:03:24 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:04:46 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int arv, char **arg)
 {
 	int		fd;
 	char	*path;
-	t_size	window_size;
+	// t_size	window_size;
 	t_tab	*matrice;
 	t_tab	*ptr_matrice;
 	t_vars	vars;
@@ -114,15 +114,17 @@ int	main(int arv, char **arg)
 	matrice->tab = NULL;
 	matrice->next = NULL;
 	ptr_matrice = matrice;
-	window_size.height = 0;
-	window_size.width = 0;
+	// window_size.height = 0;
+	// window_size.width = 0;
 	path = ft_strdup(arg[arv - 1]);
 	if (!path)
 		return (free(path), 0);
 	fd = open(path, O_RDONLY);
-	parsing_handling(fd, path, &window_size, matrice);
+	parsing_handling(fd, path, matrice, &vars);
 	close(fd);
-	if (is_the_map_correct(ptr_matrice, &window_size, &vars) == 0)
+	// if (is_the_map_correct(ptr_matrice, &window_size, &vars) == 0)
+	if (is_the_map_correct(ptr_matrice, &vars) == 0)
 		exit(0);
-	create_window(&window_size, &vars);
+	// create_window(&window_size, &vars);
+	create_window(&vars);
 }

@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/18 16:45:56 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:00:42 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static t_tab	*fill_the_matrice(char *line)
 	return (new_matrice);
 }
 
-void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
+// void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice, t_vars *vars)
+void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 {
 	char	*line;
 	t_tab	*new_matrice;
@@ -87,7 +88,8 @@ void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
 	}
 	while (line)
 	{
-		window_size->width = ft_strlen(line);
+		// window_size->width = ft_strlen(line);
+		vars->width = ft_strlen(line);
 		new_matrice = fill_the_matrice(line);
 		if (!new_matrice)
 			return ;
@@ -95,7 +97,8 @@ void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice)
 		line = get_next_line(fd);
 		if (new_matrice != NULL)
 			ft_lstadd_back_sl(&matrice, new_matrice);
-		window_size->height++;
+		// window_size->height++;
+		vars->height++;
 	}
 	free(line);
 	free(path);

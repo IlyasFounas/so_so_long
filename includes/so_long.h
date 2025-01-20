@@ -53,6 +53,7 @@ int	ft_flood_fill(t_vars *vars);
 
 // find_t_axes.c
 t_axes	*find_t_axes(t_vars *vars, char *path);
+int	create_object(t_vars *vars, char *path, int axe_x, int axe_y);
 
 // manage_events.c
 int	manage_events(int keycode, t_vars *vars);
@@ -61,10 +62,12 @@ int	manage_events(int keycode, t_vars *vars);
 void	create_window(t_size *window_size, t_vars *vars);
 
 // manage_errors.c
-int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);
+// int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);
+int	is_the_map_correct(t_tab *ptr_matrice, t_vars *vars);
 
 // map_parsing.c
 void	free_matrice(t_tab *matrice);
-void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice);
+// void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice, t_vars *vars);
+void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars);
 
 #endif

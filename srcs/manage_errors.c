@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 10:10:40 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:01:59 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int	verif_nb_characters(t_vars *vars, int y, int x)
 	return (1);
 }
 
-static void	create_array_2d(t_tab *matrice, t_size *window_size, t_vars *vars)
+// static void	create_array_2d(t_tab *matrice, t_size *window_size, t_vars *vars)
+static void	create_array_2d(t_tab *matrice, t_vars *vars)
 {
 	int		y;
 	int		x;
@@ -63,7 +64,7 @@ static void	create_array_2d(t_tab *matrice, t_size *window_size, t_vars *vars)
 
 	y = 0;
 	x = -1;
-	vars->matrice_of_m = malloc((window_size->height) * sizeof(int *));
+	vars->matrice_of_m = malloc((vars->height) * sizeof(int *));
 	if (!vars->matrice_of_m)
 		return ;
 	while (matrice)
@@ -71,10 +72,10 @@ static void	create_array_2d(t_tab *matrice, t_size *window_size, t_vars *vars)
 		ptr_matrice = matrice;
 		if (ptr_matrice->tab)
 		{
-			vars->matrice_of_m[y] = malloc((window_size->width) * sizeof(int));
+			vars->matrice_of_m[y] = malloc((vars->width) * sizeof(int));
 			if (!vars->matrice_of_m[y])
 				return ;
-			while (++x < window_size->width)
+			while (++x < vars->width)
 				vars->matrice_of_m[y][x] = ptr_matrice->tab[x];
 			x = -1;
 			y++;
@@ -83,15 +84,18 @@ static void	create_array_2d(t_tab *matrice, t_size *window_size, t_vars *vars)
 	}
 }
 
-int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
+// int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
+int	is_the_map_correct(t_tab *matrice, t_vars *vars)
 {
 	int	y;
 
 	y = -1;
-	create_array_2d(matrice, window_size, vars);
+	// create_array_2d(matrice, window_size, vars);
+	create_array_2d(matrice, vars);
 	free_matrice(matrice);
-	vars->height = window_size->height;
-	vars->width = window_size->width;
+	// vars->height = window_size->height;
+	// vars->width = window_size->width;
+	printf("%d\n", vars->height);
 	while (++y < vars->height)
 	{
 		if (verif_nb_characters(vars, y, -1) == 0 || vars->height >= vars->width
