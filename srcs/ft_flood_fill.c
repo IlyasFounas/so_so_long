@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 12:03:43 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 13:32:00 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static void	path_up_and_right(int **tab, int y, int x, int w, int h)
 	{
 		if (tab[y][x] == 'E')
 		{
-			if (tab[y - 1][x] == 'C' && tab[y - 2][x] == 1 && tab[y - 1][x
-				+ 1] == 1 && tab[y - 1][x - 1] == 1)
-				tab[y - 1][x] = 2;
-			if (tab[y][x + 1] == 'C' && tab[y][x + 2] == 1 && tab[y - 1][x
-				+ 1] == 1 && tab[y + 1][x - 1] == 1)
-				tab[y][x + 1] = 2;
+			// if (tab[y - 1][x] == 'C' && tab[y - 2][x] == 1 && tab[y - 1][x
+			// 	+ 1] == 1 && tab[y - 1][x - 1] == 1)
+			// 	tab[y - 1][x] = 2;
+			// if (tab[y][x + 1] == 'C' && tab[y][x + 2] == 1 && tab[y - 1][x
+			// 	+ 1] == 1 && tab[y + 1][x - 1] == 1)
+			// 	tab[y][x + 1] = 2;
 			tab[y][x] = 'X';
 			return ;
 		}
@@ -67,12 +67,12 @@ static void	path_down_and_left(int **tab, int y, int x, int w, int h)
 	{
 		if (tab[y][x] == 'E')
 		{
-			if (tab[y + 1][x] == 'C' && tab[y + 2][x] == 1 && tab[y + 1][x
-				+ 1] == 1 && tab[y + 1][x - 1] == 1)
-				tab[y + 1][x] = 2;
-			if (tab[y][x - 1] == 'C' && tab[y][x - 2] == 1 && tab[y - 1][x
-				- 1] == 1 && tab[y + 1][x - 1] == 1)
-				tab[y][x + 1] = 2;
+			// if (tab[y + 1][x] == 'C' && tab[y + 2][x] == 1 && tab[y + 1][x
+			// 	+ 1] == 1 && tab[y + 1][x - 1] == 1)
+			// 	tab[y + 1][x] = 2;
+			// if (tab[y][x - 1] == 'C' && tab[y][x - 2] == 1 && tab[y - 1][x
+			// 	- 1] == 1 && tab[y + 1][x - 1] == 1)
+			// 	tab[y][x + 1] = 2;
 			tab[y][x] = 'X';
 			return ;
 		}
