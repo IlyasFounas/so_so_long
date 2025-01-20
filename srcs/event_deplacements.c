@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:25:20 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/18 16:42:42 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 10:25:58 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	manage_events(int keycode, t_vars *vars)
 	t_axes		*hero_axes = NULL;
 
 	if (!deplacement_count)
-		deplacement_count = 0;
+		deplacement_count = 1;
 	if (keycode == 65307)
 		finish_the_game(vars, 0, hero_axes);
 	else if (keycode == 100)
@@ -125,10 +125,7 @@ int	manage_events(int keycode, t_vars *vars)
 	else
 		return (1);
 	if (hero_axes->yes_or_no == 1)
-	{
-		deplacement_count++;
-		ft_printf("%d\n", deplacement_count);
-	}
+		ft_printf("%d\n", deplacement_count++);
 	if (hero_axes->yes_or_no == 2)
 		finish_the_game(vars, deplacement_count, hero_axes);
 	if (finished_or_not(vars) == 1)

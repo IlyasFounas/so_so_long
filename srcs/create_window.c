@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/18 16:56:27 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 12:19:49 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ static int	verif_object(int axe_x, int axe_y, t_vars *vars, int i)
 	else if (vars->matrice_of_m[axe_y][i] == 0)
 		axe_x += create_object(vars, "assets/Grass1.xpm", axe_x, axe_y);
 	else if (vars->matrice_of_m[axe_y][i] == 'C')
-		axe_x += create_object(vars, "assets/Item.xpm", axe_x, axe_y);
+	{
+		if (i % 2 == 0)
+			axe_x += create_object(vars, "assets/Item2.xpm", axe_x, axe_y);
+		else
+			axe_x += create_object(vars, "assets/Item.xpm", axe_x, axe_y);	
+	}
 	else if (vars->matrice_of_m[axe_y][i] == 'P')
 		axe_x += create_object(vars, "assets/Hero.xpm", axe_x, axe_y);
 	else if (vars->matrice_of_m[axe_y][i] == 'E')
@@ -90,7 +95,7 @@ void	create_window(t_size *window_size, t_vars *vars)
 	if (!img_ptr)
 		return ;
 	vars->win = mlx_new_window(vars->mlx, window_size->width * img_w,
-			window_size->height * img_h, "SO_LONG");
+			window_size->height * img_h, "SO_LONG_DOFUS");
 	if (!vars->win)
 		finish_the_game(vars, 0, NULL);
 	mlx_destroy_image(vars->mlx,img_ptr);

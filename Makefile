@@ -2,7 +2,7 @@ NAME    = so_long
 SRC     = srcs/create_window.c \
           srcs/event_deplacements.c \
           srcs/find_t_axes.c \
-          srcs/find_good_path.c \
+          srcs/ft_flood_fill.c \
 		  srcs/main.c \
           srcs/manage_errors.c \
           srcs/map_parsing.c \
@@ -50,7 +50,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	valgrind ./$(NAME) map2.ber
+	./$(NAME) maps/map2.ber
 
 all: $(NAME)
 

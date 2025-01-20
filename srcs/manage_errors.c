@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/18 18:31:47 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 10:10:40 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	is_the_map_correct(t_tab *matrice, t_size *window_size, t_vars *vars)
 			return (0);
 		}
 	}
-	if (is_the_path_valid_or_not(vars) == 0)
+	if (ft_flood_fill(vars) == 0)
 	{
 		write(2, "\n\n>>Error no path can finish the map.<<\n\n",
 			ft_strlen("\n\n>>Error no path can finish the map.<<\n\n"));

@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/18 18:59:06 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 10:03:24 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,14 @@ int	check_the_map_extension(char *s)
 		return (write(2, "\n\n>> A map is required to run so_long <<\n\n",
 				ft_strlen("\n\n>> A map is required to run so_long <<\n\n")),
 			0);
-	if (ft_strncmp(ft_strchr(s, '.'), ".ber", 4) != 0 || ft_strchr(ft_strchr(s, '.') + 1, '.') != NULL)
+	if (ft_strncmp(ft_strchr(s, '.'), ".ber", 4) != 0 || ft_strchr(ft_strchr(s,
+				'.') + 1, '.') != NULL)
 		return (write(2, "\n\n>> This map isn't a .ber extenson <<\n\n",
 				ft_strlen("\n\n>> This map isn't a .ber extenson <<\n\n")), 0);
-	ft_printf("%s", ft_strchr(ft_strchr(s, '.') + 1, '.'));
+	if (ft_strncmp(s, "maps/", 5) != 0)
+		return (write(2, "\n\n>> You forgot the 'maps/' path <<\n\n",
+				ft_strlen("\n\n>> You forgot the 'maps/' path <<\n\n")), 0);
+		
 	return (1);
 }
 
@@ -112,7 +116,7 @@ int	main(int arv, char **arg)
 	ptr_matrice = matrice;
 	window_size.height = 0;
 	window_size.width = 0;
-	path = ft_strjoin("maps/", arg[arv - 1]);
+	path = ft_strdup(arg[arv - 1]);
 	if (!path)
 		return (free(path), 0);
 	fd = open(path, O_RDONLY);

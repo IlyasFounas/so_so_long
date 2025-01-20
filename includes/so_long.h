@@ -49,7 +49,7 @@ void	allow_to_exit(t_vars *vars, char *path);
 void	finish_the_game(t_vars *vars, int deplacement_count, t_axes *hero_axes);
 
 // find_good_path
-int	is_the_path_valid_or_not(t_vars *vars);
+int	ft_flood_fill(t_vars *vars);
 
 // find_t_axes.c
 t_axes	*find_t_axes(t_vars *vars, char *path);

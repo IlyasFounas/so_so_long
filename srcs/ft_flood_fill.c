@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_good_path.c                                   :+:      :+:    :+:   */
+/*   ft_flood_fill.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/18 19:01:28 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/20 12:03:43 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,19 @@ static int	**matrice_cpy_for_path(t_vars *vars)
 
 static void	path_up_and_right(int **tab, int y, int x, int w, int h)
 {
-	if (tab[y][x] != 1)
+	if (tab[y][x] != 1 && tab[y][x] != 2)
 	{
+		if (tab[y][x] == 'E')
+		{
+			if (tab[y - 1][x] == 'C' && tab[y - 2][x] == 1 && tab[y - 1][x
+				+ 1] == 1 && tab[y - 1][x - 1] == 1)
+				tab[y - 1][x] = 2;
+			if (tab[y][x + 1] == 'C' && tab[y][x + 2] == 1 && tab[y - 1][x
+				+ 1] == 1 && tab[y + 1][x - 1] == 1)
+				tab[y][x + 1] = 2;
+			tab[y][x] = 'X';
+			return ;
+		}
 		tab[y][x] = 'X';
 		if (tab[y - 1][x] != 1)
 			path_up_and_right(tab, y - 1, x, w, h);
@@ -52,8 +63,19 @@ static void	path_up_and_right(int **tab, int y, int x, int w, int h)
 
 static void	path_down_and_left(int **tab, int y, int x, int w, int h)
 {
-	if (tab[y][x] != 1)
+	if (tab[y][x] != 1 && tab[y][x] != 2)
 	{
+		if (tab[y][x] == 'E')
+		{
+			if (tab[y + 1][x] == 'C' && tab[y + 2][x] == 1 && tab[y + 1][x
+				+ 1] == 1 && tab[y + 1][x - 1] == 1)
+				tab[y + 1][x] = 2;
+			if (tab[y][x - 1] == 'C' && tab[y][x - 2] == 1 && tab[y - 1][x
+				- 1] == 1 && tab[y + 1][x - 1] == 1)
+				tab[y][x + 1] = 2;
+			tab[y][x] = 'X';
+			return ;
+		}
 		tab[y][x] = 'X';
 		if (tab[y][x - 1] != 1)
 			path_down_and_left(tab, y, x - 1, w, h);
@@ -87,7 +109,7 @@ static int	**matrice_all_paths(int **tab, int h, int w)
 	return (tab);
 }
 
-int	is_the_path_valid_or_not(t_vars *vars)
+int	ft_flood_fill(t_vars *vars)
 {
 	int	y;
 	int	x;
@@ -109,7 +131,7 @@ int	is_the_path_valid_or_not(t_vars *vars)
 	{
 		x = -1;
 		while (++x < vars->width)
-			if (tab[y][x] == 'C' || tab[y][x] == 'E')
+			if (tab[y][x] == 'C' || tab[y][x] == 'E' || tab[y][x] == 2)
 				return (0);
 		free(tab[y]);
 	}
