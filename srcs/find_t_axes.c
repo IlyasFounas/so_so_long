@@ -6,12 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:21:50 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:14:45 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/21 10:35:56 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-#include "../minilibx-linux/mlx.h"
+#include "so_long.h"
 
 static int	yes_or_no_up_down(t_vars *vars, int y, int x, int up_down)
 {

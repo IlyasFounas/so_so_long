@@ -31,9 +31,10 @@ typedef struct	s_axes {
 	int	yes_or_no;
 }				t_axes;
 
-# include "../gnl/get_next_line.h"
-# include "../libft/libft.h"
-# include "../ft_printf/ft_printf.h"
+# include "get_next_line.h"
+# include "libft.h"
+# include "ft_printf.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <stdlib.h>
 
@@ -53,16 +54,13 @@ int	create_object(t_vars *vars, char *path, int axe_x, int axe_y);
 int	manage_events(int keycode, t_vars *vars);
 
 // window_handling.c
-// void	create_window(t_size *window_size, t_vars *vars);
 void	create_window(t_vars *vars);
 
 // manage_errors.c
-// int	is_the_map_correct(t_tab *ptr_matrice, t_size *window_size, t_vars *vars);
 int	is_the_map_correct(t_tab *ptr_matrice, t_vars *vars);
 
 // map_parsing.c
 void	free_matrice(t_tab *matrice);
-// void	parsing_handling(int fd, char *path, t_size *window_size, t_tab *matrice, t_vars *vars);
 void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars);
 
 #endif

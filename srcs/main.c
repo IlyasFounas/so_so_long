@@ -6,12 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:46:56 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/21 10:19:31 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-#include "../minilibx-linux/mlx.h"
+#include "so_long.h"
 
 int	finished_or_not(t_vars *vars)
 {

@@ -6,12 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:28:46 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/21 10:19:23 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-#include "../minilibx-linux/mlx.h"
+#include "so_long.h"
 
 static int	**matrice_cpy_for_path(t_vars *vars)
 {

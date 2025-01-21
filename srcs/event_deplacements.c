@@ -6,12 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:25:20 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:14:59 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/21 10:36:15 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-#include "../minilibx-linux/mlx.h"
+#include "so_long.h"
 
 static t_axes	*right_event(t_vars *vars)
 {

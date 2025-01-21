@@ -12,7 +12,7 @@ SRC     = srcs/create_window.c \
           gnl/get_next_line_utils.c
 OBJ_DIR = objs
 OBJ     = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
-CFLAGS  = -Wall -Wextra -Werror -g3 -Imlx-linux -I/usr/include -I../libft/includes
+CFLAGS = -Wall -Wextra -Werror -g3 -Imlx-linux -I/usr/include -I libft -I ft_printf -I gnl -I includes -I minilibx-linux
 CC      = cc
 
 LIBFT_DIR = libft

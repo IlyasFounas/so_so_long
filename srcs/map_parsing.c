@@ -6,11 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:10:42 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/21 10:19:15 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 void	free_matrice(t_tab *matrice)
 {

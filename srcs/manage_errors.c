@@ -6,12 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/20 18:12:49 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/21 10:19:08 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-#include "../minilibx-linux/mlx.h"
+#include "so_long.h"
 
 static int	verif_border_wall(t_vars *vars, int y, int x)
 {
