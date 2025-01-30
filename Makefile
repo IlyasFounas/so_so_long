@@ -3,7 +3,7 @@ SRC     = srcs/create_window.c \
           srcs/event_deplacements.c \
           srcs/find_t_axes.c \
           srcs/ft_flood_fill.c \
-		  srcs/main.c \
+          srcs/main.c \
           srcs/manage_errors.c \
           srcs/map_parsing.c \
           ft_printf/ft_printf.c \
@@ -21,10 +21,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX_LIBS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 
-$(NAME): $(LIBFT) $(OBJ)
+$(NAME): $(LIBFT) $(LIBFT_DIR)/libft.h $(OBJ) $(MLX_DIR)/libmlx.a $(MLX_DIR)/mlx.h Makefile ft_printf/ft_printf.h
 	$(CC) $(OBJ) $(LIBFT) $(MLX_LIBS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: srcs/%.c gnl/get_next_line.h 
+$(OBJ_DIR)/%.o: srcs/%.c gnl/get_next_line.h ft_printf/ft_printf.h
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -39,9 +39,13 @@ $(OBJ_DIR)/%.o: ft_printf/%.c ft_printf/ft_printf.h
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
+$(MLX_DIR)/libmlx.a:
+	make -C $(MLX_DIR)
+
 clean:
 	rm -rf $(OBJ_DIR)
 	make clean -C $(LIBFT_DIR)
+	make clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)
@@ -50,7 +54,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	./$(NAME) maps/map2.ber
+	./$(NAME) maps/map1.ber
 
 all: $(NAME)
 

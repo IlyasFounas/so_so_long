@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/21 10:19:31 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:07:40 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	allow_to_exit(t_vars *vars, char *path)
 				exit = mlx_xpm_file_to_image(vars->mlx, path, &img_width,
 						&img_height);
 				mlx_put_image_to_window(vars->mlx, vars->win, exit, x
-					* img_width, (y) * img_height);
+					* img_width, (y)*img_height);
 				mlx_destroy_image(vars->mlx, exit);
 				vars->matrice_of_m[y][x] = 'e';
 			}
@@ -118,7 +118,7 @@ int	main(int arv, char **arg)
 	fd = open(path, O_RDONLY);
 	parsing_handling(fd, path, matrice, &vars);
 	close(fd);
-	if (is_the_map_correct(ptr_matrice, &vars) == 0)
+	if (is_the_map_correct(ptr_matrice, &vars) == 0 || fd == -1)
 		exit(0);
 	create_window(&vars);
 }

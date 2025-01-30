@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/21 10:19:15 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:10:35 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,13 @@ void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 	char	*line;
 	t_tab	*new_matrice;
 
-	line = get_next_line(fd);
-	if (!line)
+	if (fd == -1)
 	{
 		free(path);
-		free(line);
+		ft_printf("The file doesn't exist\n");
+		return ;
 	}
+	line = get_next_line(fd);
 	while (line)
 	{
 		vars->width = ft_strlen(line);
