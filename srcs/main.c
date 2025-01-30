@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:43:09 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/30 11:31:36 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:06:30 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,11 @@ void	finish_the_game(t_vars *vars, int deplacement_count, t_axes *hero_axes)
 	exit(0);
 }
 
+
 int	check_the_map_extension(char *s)
 {
-	if (ft_strncmp(s, "./so_long", ft_strlen(s)) == 0)
-		return (write(2, "\n\n>> A map is required to run so_long <<\n\n",
-				ft_strlen("\n\n>> A map is required to run so_long <<\n\n")),
-			0);
+	if (ft_strchr(s, '.') == NULL)
+		return (0);
 	if (ft_strncmp(ft_strchr(s, '.'), ".ber", 4) != 0 || ft_strchr(ft_strchr(s,
 				'.') + 1, '.') != NULL)
 		return (write(2, "\n\n>> This map isn't a .ber extenson <<\n\n",
@@ -103,6 +102,11 @@ int	main(int arv, char **arg)
 	t_tab	*ptr_matrice;
 	t_vars	vars;
 
+	if (arv != 2)
+		return (1);
+	fd = open(arg[1], O_RDONLY);
+	if (fd == -1)
+		return (1);
 	if (check_the_map_extension(arg[arv - 1]) == 0)
 		return (0);
 	vars.matrice_of_m = NULL;
@@ -115,10 +119,11 @@ int	main(int arv, char **arg)
 	path = ft_strdup(arg[arv - 1]);
 	if (!path)
 		return (free(path), 0);
-	fd = open(path, O_RDONLY);
-	parsing_handling(fd, path, matrice, &vars);
+	if (parsing_handling(fd, path, matrice, &vars) == 0)
+		exit(0);
 	close(fd);
 	if (is_the_map_correct(ptr_matrice, &vars) == 0 || fd == -1)
 		exit(0);
 	create_window(&vars);
 }
+

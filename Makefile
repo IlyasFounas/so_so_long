@@ -54,7 +54,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	./$(NAME) maps/map1.ber
+	./$(NAME) maps/map2.ber
 
 all: $(NAME)
 

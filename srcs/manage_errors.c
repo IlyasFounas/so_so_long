@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/21 10:19:08 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:24:46 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	verif_nb_characters(t_vars *vars, int y, int x)
 			exitstart++;
 		if (c == 'C')
 			item++;
-		if (c != 1 && c != 0 && c != 'P' && c != 'E' && c != 'S' && c != 'C')
+		if (c != 1 && c != 0 && c != 'P' && c != 'E' && c != 'C')
 			return (0);
 	}
 	if (y == vars->height - 1)
@@ -82,6 +82,25 @@ static void	create_array_2d(t_tab *matrice, t_vars *vars)
 	}
 }
 
+// static int	verif_rectangle(t_vars *vars)
+// {
+// 	int	y;
+// 	int	size_y;
+
+// 	y = -1;
+// 	while (++y < vars->height)
+// 	{
+// 		size_y = 0;
+// 		while (vars->matrice_of_m[y][size_y] != NULL)
+// 		{
+// 			size_y++;
+// 		}
+// 		printf("%d %d %d \n", size_y, vars->width,
+// 			vars->matrice_of_m[y][size_y]);
+// 	}
+// 	return (1);
+// }
+
 int	is_the_map_correct(t_tab *matrice, t_vars *vars)
 {
 	int	y;
@@ -91,11 +110,14 @@ int	is_the_map_correct(t_tab *matrice, t_vars *vars)
 	free_matrice(matrice);
 	while (++y < vars->height)
 	{
-		if (verif_nb_characters(vars, y, -1) == 0 || vars->height >= vars->width
+		if (verif_nb_characters(vars, y, -1) == 0 /* || verif_rectangle(vars) == 0 */
 			|| verif_border_wall(vars, y, -1) == 0)
 		{
 			write(2, "\n\n>>Error with the formatting of the map.<<\n\n",
 				ft_strlen("\n\n>>Error with the formatting of the map.<<\n\n"));
+			while (--vars->height >= 0)
+				free(vars->matrice_of_m[vars->height]);
+			free(vars->matrice_of_m);
 			return (0);
 		}
 	}

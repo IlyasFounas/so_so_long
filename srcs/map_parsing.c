@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/30 11:10:35 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:25:57 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_tab	*fill_the_matrice(char *line)
 	return (new_matrice);
 }
 
-void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
+int	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 {
 	char	*line;
 	t_tab	*new_matrice;
@@ -82,21 +82,33 @@ void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 	{
 		free(path);
 		ft_printf("The file doesn't exist\n");
-		return ;
+		return (0);
 	}
 	line = get_next_line(fd);
 	while (line)
 	{
-		vars->width = ft_strlen(line);
+		if (vars->width != 0)
+			if (vars->width != (int)ft_strlen(line))
+			{
+				free(line);
+				free(path);
+				free_matrice(matrice);
+				return (0);
+			}
+		printf("%d %d \n", vars->width ,(int)ft_strlen(line));
+		vars->width = (int)ft_strlen(line);
 		new_matrice = fill_the_matrice(line);
 		if (!new_matrice)
-			return ;
+			return (1);
 		free(line);
 		line = get_next_line(fd);
 		if (new_matrice != NULL)
 			ft_lstadd_back_sl(&matrice, new_matrice);
 		vars->height++;
+		if (line && ft_strncmp(line, "\n", 2) == 0)
+			break;
 	}
 	free(line);
 	free(path);
+	return (1);
 }

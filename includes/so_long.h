@@ -61,6 +61,6 @@ int	is_the_map_correct(t_tab *ptr_matrice, t_vars *vars);
 
 // map_parsing.c
 void	free_matrice(t_tab *matrice);
-void	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars);
+int	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars);
 
 #endif

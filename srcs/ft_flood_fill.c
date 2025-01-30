@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/21 10:19:23 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:52:59 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,23 @@ static int	**matrice_all_paths(int **tab, t_vars *vars, int *exit)
 	return (tab);
 }
 
+static void	free_tab(int **tab, t_vars *vars, int y)
+{
+	while (y < vars->height)
+	{
+		free(tab[y]);
+		y++;
+	}
+	free(tab);
+	y = 0;
+	while (y < vars->height)
+	{
+		free(vars->matrice_of_m[y]);
+		y++;
+	}
+	free(vars->matrice_of_m);
+}
+
 int	ft_flood_fill(t_vars *vars)
 {
 	int	y;
@@ -97,7 +114,7 @@ int	ft_flood_fill(t_vars *vars)
 		x = -1;
 		while (++x < vars->width)
 			if (tab[y][x] == 'C' || exit == 0)
-				return (0);
+				return (free_tab(tab, vars, y), 0);
 		free(tab[y]);
 	}
 	return (free(tab), 1);
