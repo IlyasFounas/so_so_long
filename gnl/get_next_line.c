@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:06:05 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/04 16:24:48 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:33:11 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static char	*ft_get_rest(char *buf)
 
 	if (buf && buf[0] == '\0')
 		return (NULL);
-	res = ft_substr_g(buf, ft_strlen_g(buf, '\n'), ft_strlen_g(buf + ft_strlen_g(buf,
-					'\n'), 0));
+	res = ft_substr_g(buf, ft_strlen_g(buf, '\n'), ft_strlen_g(buf
+				+ ft_strlen_g(buf, '\n'), 0));
 	return (res);
 }
 

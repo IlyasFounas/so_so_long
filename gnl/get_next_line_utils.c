@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:25:28 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/04 16:25:33 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:32:53 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ char	*ft_strjoin_g(char *s1, char const *s2)
 
 	if (!s2)
 		return (free(s1), NULL);
-	dst = malloc((ft_strlen_g(s1, 0) + ft_strlen_g(s2, '\n') + 1) * sizeof(char));
+	dst = malloc((ft_strlen_g(s1, 0) + ft_strlen_g(s2, '\n') + 1)
+			* sizeof(char));
 	if (!dst)
 		return (free(s1), NULL);
 	ft_strlcpy_g(dst, s1, ft_strlen_g(s1, 0) + 1);
