@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/02/06 12:18:06 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:18:50 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_tab	*fill_the_matrice(char *line)
 	return (new_matrice);
 }
 
-int	fill_the_big_matrice(t_vars *vars, int verif_rectangle, t_tab *matrice,
+static int	fill_the_big_matrice(t_vars *vars, int verif_rectangle, t_tab *matrice,
 		char *line)
 {
 	t_tab	*new_matrice;
