@@ -6,13 +6,13 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:22:08 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/30 11:01:34 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:59:28 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
+static int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 {
 	int		img_width;
 	int		img_height;
@@ -21,13 +21,13 @@ int	create_object(t_vars *vars, char *path, int axe_x, int axe_y)
 	img_void = mlx_xpm_file_to_image(vars->mlx, path, &img_width, &img_height);
 	if (!img_void)
 	{
-		write(2, "\n\n>>", 4);
+		write(2, "\n\n>> Error ", 11);
 		write(2, path, ft_strlen(path));
 		write(2, " doesn't work<<\n\n", 17);
 		finish_the_game(vars, 0, NULL);
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x,
-		(axe_y) * img_height);
+	mlx_put_image_to_window(vars->mlx, vars->win, img_void, axe_x, (axe_y
+			* img_height));
 	if (ft_strncmp(path, "assets/Hero.xpm", ft_strlen("assets/Hero.xpm")) == 0)
 		vars->hero = img_void;
 	mlx_destroy_image(vars->mlx, img_void);
@@ -76,7 +76,7 @@ static void	create_map(t_vars *vars)
 	}
 }
 
-int	mouse_hook(int keycode)
+static int	mouse_hook(int keycode)
 {
 	exit(0);
 	return (keycode);

@@ -6,6 +6,7 @@ SRC     = srcs/create_window.c \
           srcs/main.c \
           srcs/manage_errors.c \
           srcs/map_parsing.c \
+          srcs/so_long_utils.c \
           ft_printf/ft_printf.c \
           ft_printf/ft_printf_utils.c \
           gnl/get_next_line.c \

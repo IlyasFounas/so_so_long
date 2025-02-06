@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:43:17 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/30 16:24:46 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:08:13 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	verif_border_wall(t_vars *vars, int y, int x)
 		return (0);
 	while (++x < vars->width)
 	{
-		if (y == 0 || y == vars->height)
+		if (y == 0 || y == vars->height - 1)
 			if (vars->matrice_of_m[y][x] != 1)
 				return (0);
 	}
@@ -82,25 +82,6 @@ static void	create_array_2d(t_tab *matrice, t_vars *vars)
 	}
 }
 
-// static int	verif_rectangle(t_vars *vars)
-// {
-// 	int	y;
-// 	int	size_y;
-
-// 	y = -1;
-// 	while (++y < vars->height)
-// 	{
-// 		size_y = 0;
-// 		while (vars->matrice_of_m[y][size_y] != NULL)
-// 		{
-// 			size_y++;
-// 		}
-// 		printf("%d %d %d \n", size_y, vars->width,
-// 			vars->matrice_of_m[y][size_y]);
-// 	}
-// 	return (1);
-// }
-
 int	is_the_map_correct(t_tab *matrice, t_vars *vars)
 {
 	int	y;
@@ -110,11 +91,12 @@ int	is_the_map_correct(t_tab *matrice, t_vars *vars)
 	free_matrice(matrice);
 	while (++y < vars->height)
 	{
-		if (verif_nb_characters(vars, y, -1) == 0 /* || verif_rectangle(vars) == 0 */
-			|| verif_border_wall(vars, y, -1) == 0)
+		if (verif_nb_characters(vars, y, -1) == 0 || verif_border_wall(vars, y,
+				-1) == 0)
 		{
-			write(2, "\n\n>>Error with the formatting of the map.<<\n\n",
-				ft_strlen("\n\n>>Error with the formatting of the map.<<\n\n"));
+			write(2, "\n\n>> Error with the formatting of the map <<\n\n",
+				ft_strlen("\n\n>> Error with the formatting of the map <<\n\n")
+				);
 			while (--vars->height >= 0)
 				free(vars->matrice_of_m[vars->height]);
 			free(vars->matrice_of_m);
@@ -122,10 +104,8 @@ int	is_the_map_correct(t_tab *matrice, t_vars *vars)
 		}
 	}
 	if (ft_flood_fill(vars) == 0)
-	{
-		write(2, "\n\n>>Error no path can finish the map.<<\n\n",
-			ft_strlen("\n\n>>Error no path can finish the map.<<\n\n"));
-		return (0);
-	}
+		return (write(2, "\n\n>> Error no path can finish the map <<\n\n",
+				ft_strlen("\n\n>> Error no path can finish the map <<\n\n")),
+			0);
 	return (1);
 }

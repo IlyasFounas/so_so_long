@@ -6,7 +6,7 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:23 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/30 16:52:59 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:45:41 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,17 @@ int	ft_flood_fill(t_vars *vars)
 	int	**tab;
 	int	exit;
 
-	y = -1;
 	exit = 0;
+	y = -1;
+	if (vars->width * 105 > 3840 || vars->height * 123 > 2160)
+	{
+		write(2,
+			"\n\n>> Error with the formatting of the map <<\n\n",
+			ft_strlen("\n\n>> Error with the formatting of the map <<\n\n"));
+		finish_the_game(vars, 0, NULL);
+	}
 	tab = matrice_cpy_for_path(vars);
 	tab = matrice_all_paths(tab, vars, &exit);
-	y = -1;
 	while (++y < vars->height)
 	{
 		x = -1;

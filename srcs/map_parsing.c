@@ -6,25 +6,11 @@
 /*   By: ifounas <ifounas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 19:51:32 by ifounas           #+#    #+#             */
-/*   Updated: 2025/01/30 17:25:57 by ifounas          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:18:06 by ifounas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	free_matrice(t_tab *matrice)
-{
-	t_tab	*tmp;
-
-	while (matrice)
-	{
-		tmp = matrice->next;
-		if (matrice->tab)
-			free(matrice->tab);
-		free(matrice);
-		matrice = tmp;
-	}
-}
 
 static t_tab	*ft_lstlast_sl(t_tab *lst)
 {
@@ -68,46 +54,60 @@ static t_tab	*fill_the_matrice(char *line)
 		if ((line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A'
 				&& line[i] <= 'Z') || (line[i] >= '0' && line[i] <= '9'))
 			new_matrice->tab[i] = line[i] - 48;
+		else
+			return (free(new_matrice->tab), free(new_matrice), NULL);
 		i++;
 	}
 	return (new_matrice);
 }
 
+int	fill_the_big_matrice(t_vars *vars, int verif_rectangle, t_tab *matrice,
+		char *line)
+{
+	t_tab	*new_matrice;
+
+	if (verif_rectangle == 0)
+	{
+		if (line[(int)ft_strlen(line) - 1] == '\n')
+			verif_rectangle = (int)ft_strlen(line) - 1;
+		else
+			verif_rectangle = (int)ft_strlen(line);
+	}
+	if (line[(int)ft_strlen(line) - 1] == '\n')
+		vars->width = (int)ft_strlen(line) - 1;
+	else
+		vars->width = (int)ft_strlen(line);
+	if (line[vars->width - 1] != '\n')
+		if (verif_rectangle != vars->width)
+			return (0);
+	new_matrice = fill_the_matrice(line);
+	if (!new_matrice)
+		return (0);
+	if (new_matrice != NULL)
+		ft_lstadd_back_sl(&matrice, new_matrice);
+	return (1);
+}
+
 int	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars)
 {
 	char	*line;
-	t_tab	*new_matrice;
+	int		verif_rectangle;
 
-	if (fd == -1)
-	{
-		free(path);
-		ft_printf("The file doesn't exist\n");
-		return (0);
-	}
+	verif_rectangle = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (vars->width != 0)
-			if (vars->width != (int)ft_strlen(line))
-			{
-				free(line);
-				free(path);
-				free_matrice(matrice);
-				return (0);
-			}
-		printf("%d %d \n", vars->width ,(int)ft_strlen(line));
-		vars->width = (int)ft_strlen(line);
-		new_matrice = fill_the_matrice(line);
-		if (!new_matrice)
-			return (1);
+		if (ft_strncmp(line, "\n", 1) != 0)
+		{
+			if (fill_the_big_matrice(vars, verif_rectangle, matrice, line) == 0)
+				return (free(line), free(path), free_matrice(matrice), 0);
+			vars->height++;
+		}
 		free(line);
 		line = get_next_line(fd);
-		if (new_matrice != NULL)
-			ft_lstadd_back_sl(&matrice, new_matrice);
-		vars->height++;
-		if (line && ft_strncmp(line, "\n", 2) == 0)
-			break;
 	}
+	if (vars->height < 1)
+		return (manage_error_map_parsing(line, path, matrice));
 	free(line);
 	free(path);
 	return (1);

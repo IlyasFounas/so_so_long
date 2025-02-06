@@ -38,17 +38,11 @@ typedef struct	s_axes {
 # include <fcntl.h>
 # include <stdlib.h>
 
-// main.c
-int finished_or_not(t_vars *vars);
-void	allow_to_exit(t_vars *vars, char *path);
-void	finish_the_game(t_vars *vars, int deplacement_count, t_axes *hero_axes);
-
-// find_good_path
+// ft_flood_fill.c
 int	ft_flood_fill(t_vars *vars);
 
 // find_t_axes.c
 t_axes	*find_t_axes(t_vars *vars, char *path);
-int	create_object(t_vars *vars, char *path, int axe_x, int axe_y);
 
 // manage_events.c
 int	manage_events(int keycode, t_vars *vars);
@@ -60,7 +54,13 @@ void	create_window(t_vars *vars);
 int	is_the_map_correct(t_tab *ptr_matrice, t_vars *vars);
 
 // map_parsing.c
-void	free_matrice(t_tab *matrice);
 int	parsing_handling(int fd, char *path, t_tab *matrice, t_vars *vars);
+
+// so_long_utils.c
+void	free_matrice(t_tab *matrice);
+int	manage_error_map_parsing(char *line, char *path, t_tab *matrice);
+int finished_or_not(t_vars *vars);
+void	allow_to_exit(t_vars *vars, char *path);
+void	finish_the_game(t_vars *vars, int deplacement_count, t_axes *hero_axes);
 
 #endif
